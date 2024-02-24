@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter - Home</title>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
+    
 </head>
 <body>
     <div class="container">
@@ -26,12 +22,16 @@
                         
             <div class="user-info">
                 <span id="logged-in-user" th:text="${username}"></span>
-            </div>            
-        </div>   
+            </div> 
+                       
+            </div>   
+        
         
         
 
         <div class="main-content">
+        
+      
     <div class="header">
         <h2 class="header-title">Home</h2>
     </div>
@@ -48,6 +48,7 @@
     
     
     
+    
     <div class="tweet-container">
         <div class="tweet-input-container">
             <form action="/home" method="POST" class="tweet-form">
@@ -55,7 +56,9 @@
                 
   <select name="hashtag" required>
     <option value="">Seleziona un hashtag</option>
-    <!-- Itera attraverso gli hashtag nel modello e genera gli option -->
+    
+     
+    
     <th:block th:each="hashtag : ${hashtags}">
         <option th:value="${hashtag.IDHashtag}" th:text="${hashtag.testo}"></option>
     </th:block>
@@ -86,10 +89,9 @@
         </div>
     </div>
 </div>
-
+     </div>
         
-        
-           
+         
         <div class="search-sidebar">
             <form action="/cerca" method="get">
                 <div class="search-input">
@@ -97,13 +99,10 @@
                     <button type="submit" class="search-button">
                         <i class="fas fa-search"></i> Cerca
                     </button>
-                </div>
-                
-                
-                
-            </form>
+                </div>              
+               </form>
         </div>
-    </div>
+
     
     
 

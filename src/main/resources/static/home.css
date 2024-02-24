@@ -1,60 +1,3 @@
- body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    background-color: #f8faff;
-}
-
-.container {
-    display: flex;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-.sidebar {
-    width: 280px;
-    height: 100%;
-    background-color: #ffffff;
-    position: fixed;
-    left: 5px;
-    top: 0;
-    padding-top: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    font-size: 24px;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 15px;
-}
-
-.sidebar li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.sidebar a {
-    display: block;
-    padding: 15px;
-    text-decoration: none;
-    color: #1da1f2;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.sidebar a.active {
-    background-color: #e1f5fe;
-}
-
-.main-content {
-    padding: 20px;
-    margin-left: 300px;
-    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
-    max-width: 800px; /* Imposta una larghezza massima per grandi schermi */
-    box-sizing: border-box;
-}
-
 .header {
     border-bottom: 2px solid #4AB3F4;
     padding-bottom: 15px;
@@ -81,28 +24,28 @@
     border: 2px solid #4AB3F4;
     border-radius: 8px;
     box-sizing: border-box;
-    min-height: 100px; /* Altezza iniziale maggiore */
-    resize: vertical; /* Permette all'utente di cambiare l'altezza */
+    min-height: 100px; 
+    resize: vertical; 
 }
 
 .tweet-post-button {
     background-color: #4AB3F4;
     color: white;
-    padding: 12px 25px; /* Ingrandimento del bottone */
+    padding: 12px 25px; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px; /* Aumento della dimensione del testo */
+    font-size: 18px; 
     transition: background-color 0.3s;
-    display: block; /* Rende il bottone un blocco */
-    margin: 10px auto; /* Centra il bottone */
+    display: block; 
+    margin: 10px auto; 
 }
 
 .tweet-post-button:hover {
     background-color: #3A93D1;
 }
 
-/* Stili per la lista dei tweet */
+
 .tweet-list {
     margin-top: 20px;
 }
@@ -123,8 +66,8 @@
 .tweet-content {
     color: #666;
     margin-top: 10px;
-    word-wrap: break-word; /* Permette al testo di andare a capo */
-    overflow-wrap: break-word; /* Gestisce le parole lunghe */
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
 }
 
 .tweet-timestamp {
@@ -134,52 +77,7 @@
     margin-top: 10px;
 }
 
-.search-sidebar {
-    height: 100%;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    position: fixed;
-    right: 20px;
-    top: 0;
-}
 
-.search-sidebar form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.search-input {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.search-input input.search-text {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-.search-input button.search-button {
-    padding: 12px;
-    background-color: #1da1f2;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 18px;
-}
-
-.search-input button.search-button i {
-    margin-right: 5px;
-}
 
 .user-info {
     background-color: #f0f0f0;
@@ -192,14 +90,14 @@
 }
 
 
-/* Aumenta la specificità targettizzando il select all'interno della tweet-input-container */
+
 .tweet-input-container select[name="hashtag"] {
     width: 100%;
     padding: 12px;
-    margin-top: 10px; /* Spazio dal textarea */
-    margin-bottom: 10px; /* Spazio prima del bottone */
+    margin-top: 10px; 
+    margin-bottom: 10px; 
     font-size: 16px;
-    border: 1px solid #ccc; /* Colore del bordo più neutro */
+    border: 1px solid #ccc; 
     border-radius: 4px;
     background-color: #fff;
     box-sizing: border-box;
@@ -213,3 +111,6 @@
 .tweet-input-container select[name="hashtag"] option[disabled] {
     color: #999;
 }
+
+
+
