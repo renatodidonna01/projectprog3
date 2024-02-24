@@ -112,8 +112,9 @@ body {
 .main-content {
     margin-left: 300px; /* Assicurati che questo margine sinistro sia sufficiente per la tua sidebar */
     padding: 20px;
-    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
+    width: calc(100% - 800px); /* Adatta la larghezza considerando le sidebar */
     box-sizing: border-box;
+    max-width: 500px; 
 }
 
 

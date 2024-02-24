@@ -93,7 +93,7 @@
         
          
         <div class="search-sidebar">
-            <form action="/cerca" method="get">
+            <form action="/home" method="get">
                 <div class="search-input">
                     <input type="text" class="search-text" name="query" placeholder="Cerca...">
                     <button type="submit" class="search-button">
@@ -101,7 +101,18 @@
                     </button>
                 </div>              
                </form>
-        </div>
+               
+               
+               <div th:if="${risultatiRicercaUtenti}"   class="risultati-ricerca">
+               <h3>Risultati Utenti:</h3>
+               <ul>
+               <li th:each="utente : ${risultatiRicercaUtenti}">
+               <a th:href="@{/profilo/{username}(username=${utente.username})}" th:text="${utente.username}">Profilo</a>     
+               </li>
+               </ul>
+               </div>
+
+         </div>
 
     
     

@@ -15,7 +15,6 @@ import com.example.projectTwitter.service.UtenteService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-
 @Controller
 public class EsploraController {
 

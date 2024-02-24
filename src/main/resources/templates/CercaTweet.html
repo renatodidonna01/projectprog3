@@ -3,101 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cerca Tweet </title>
+    <title>Cerca Tweet</title>
     <link rel="stylesheet" href="/cercaTweet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
-
 <body>
-       
-     <div class="container">
+    <div class="container">
         <div class="sidebar">
             <ul>
-                <li><a href="/admin/home" class="active"><i class="fas fa-home"></i> Home</a></li>
-                
-                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
-                
-                 <li><a href="/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
-        
-                  <li><a href="/cercatweet"><i class="fas fa-search"></i> Cerca</a></li>
-        
-        
+                <li><a href="/admin/home" ><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/admin/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+                <li><a href="/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
+                <li><a href="/cercatweet" class="active"><i class="fas fa-search"></i> Cerca</a></li>
             </ul>
-                       
-            
-            
-            <!-- Opzionalmente, puoi includere un link per tornare indietro o a una pagina specifica -->
-        <a href="/esplora">Torna alle Categorie</a>
-            
+            <div class="user-info">
+                <span id="logged-in-user" th:text="${utente.username}"></span>
+            </div> 
         </div>   
-        
         
         <div class="main-content">
             <div class="header">
-                 <h2 class="header-title"> Cerca </h2>
+                <h2 class="header-title">Cerca</h2>
             </div>
         
-           
-        <div class="search-sidebar">
-            <form action="/cercatweet" method="get">
-                <div class="search-input">
-                    <input type="text" class="search-text" name="query" placeholder="Cerca...">
-                    <button type="submit" class="search-button">
-                        <i class="fas fa-search"></i> Cerca
-                    </button>
-                </div>
+            <div class="search-sidebar">
+                <form action="/cercatweet" method="get">
+                    <div class="search-input">
+                        <input type="text" class="search-text" name="query" placeholder="Cerca...">
+                        <button type="submit" class="search-button"><i class="fas fa-search"></i> Cerca</button>
+                    </div>
                 </form>
-                </div>
+            </div>
                 
-                <div class="risultati-ricerca">
+            <div class="risultati-ricerca">
                 <h3>Risultati Ricerca</h3>
-               
-               <ul>
-                <!-- Itera su ogni tweet e mostra i dettagli -->
-                <div th:each="tweet : ${risultatiRicerca}">
-                    <div class="tweet">
-                    
-                    <div class="tweet-user">
-                    <span th:text="${tweet.utente.username}"></span>
-                </div>
-                    
-                    <div class="tweet-content">
-                        <p th:text="${tweet?.testo}">Testo del tweet</p>
-                        <!-- Includi altre informazioni sul tweet qui, se desiderato -->
-                        <span th:text="${tweet.hashtag.testo}">Hashtag</span>
-                        
+                <ul>
+                    <li th:each="tweet : ${risultatiRicerca}">
+                        <div class="tweet">
+                            <div class="tweet-user">
+                                <span th:text="${tweet.utente.username}"></span>
+                            </div>
+                            <div class="tweet-content">
+                                <p th:text="${tweet.testo}">Testo del tweet</p>
+                                <span th:text="${tweet.hashtag.testo}">Hashtag</span>
+                            </div>
+                            <div class="tweet-timestamp">
+                                <span th:text="${tweet.dataOra}">Data/Ora</span>
+                            </div>
                         </div>
-                        
-                        
-                        
-                        <div class="tweet-timestamp">
-                        <span th:text="${tweet.dataOra}">Data/Ora</span>
-                        </div>
-                        
-                                      
-                      </div>
-                
-                
-            
-        
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    
-        
-    
-    
-    </div>
-    </div>
-    
-    
 </body>
 </html>
-
-       
-       
-                          
-   
-    
-    
-
- 

@@ -4,6 +4,10 @@ body {
     background-color: #f8faff;
 }
 
+
+
+
+
 .container {
     display: flex;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -151,3 +155,16 @@ body {
     
     font-weight: bold;
 }
+
+
+
+.user-info {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #1da1f2;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+}
+

@@ -7,7 +7,10 @@ body {
 .container {
     display: flex;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    flex-direction: row; /* Assicurati che gli elementi siano disposti in fila */
+    justify-content: space-between; /* Distanzia gli elementi */
 }
+
 
 .sidebar {
     width: 280px;
@@ -23,31 +26,12 @@ body {
     font-size: 24px;
 }
 
+
 .sidebar ul {
     list-style-type: none;
     padding: 0;
     margin-top: 15px;
-}
-
-.sidebar li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.sidebar a {
-    display: block;
-    padding: 15px;
-    text-decoration: none;
-    color: #1da1f2;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.sidebar a.active {
-    background-color: #e1f5fe;
-}
-
-
+} 
 
 .search-sidebar {
     height: 100%;
@@ -55,11 +39,12 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 20px;
     position: fixed;
-    right: 20px;
+    right: 30px;
     top: 0;
+    width: 280px;
+    align-items: center;
 }
 
 .search-sidebar form {
@@ -96,66 +81,75 @@ body {
     margin-right: 5px;
 }
 
-.user-info {
-    background-color: #f0f0f0;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    color: #1da1f2;
-    border-bottom: 1px solid #ddd;
-    margin-top: 20px;
-}
-
-
 
 
 .main-content {
-    margin-left: 300px; /* Assicurati che questo margine sinistro sia sufficiente per la tua sidebar */
     padding: 20px;
-    width: calc(100% - 800px); /* Adatta la larghezza considerando le sidebar */
+    margin-left: 300px; 
+    margin-right: 300px;    
+    width: calc(100% - 600px); 
+    max-width: 700px; 
     box-sizing: border-box;
-    max-width: 500px; 
 }
 
 
-.user-followers {
-    margin-top: 20px;
-    background-color: #f8f8f8;
-    border-radius: 10px;
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
     padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: #1da1f2;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.user-followers h3 {
+.sidebar a.active {
+    background-color: #e1f5fe; 
+}
+
+
+
+.risultati-ricerca {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.risultati-ricerca h3 {
     margin-bottom: 10px;
-    color: #333;
-    font-size: 18px;
+    color: #1da1f2;
 }
 
-.follow-list {
-    list-style: none;
+.risultati-ricerca ul {
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.follow-list li {
+.risultati-ricerca li {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
-    font-size: 16px;
-    color: #555;
+    border-bottom: 1px solid #e1e8ed;
 }
 
-.follow-list li:last-child {
+.risultati-ricerca li:last-child {
     border-bottom: none;
 }
 
-.follower-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.risultati-ricerca a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-
-
+.risultati-ricerca a:hover {
+    text-decoration: underline;
+}
 
 

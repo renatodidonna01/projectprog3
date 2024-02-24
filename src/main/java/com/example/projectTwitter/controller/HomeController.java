@@ -35,7 +35,7 @@ public class HomeController {
 	 
 	 
 	@GetMapping("/home")
-	public String home(HttpServletRequest request, Model model) {
+	public String home(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
 		 if (request.getSession().getAttribute("username") == null)
 		 {
 			 return "redirect:/login";
@@ -43,6 +43,14 @@ public class HomeController {
 	    String username = (String) request.getSession().getAttribute("username");
 	    
 	    Utente utente = utenteService.trovaUtentePerUsername(username);
+	    
+	    // Aggiungi qui la logica di ricerca se il parametro query non è vuoto
+	    if (query != null && !query.trim().isEmpty()) {
+	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtenti(query, username);
+	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);	       
+	    }
+	    
+	    
 	    
 	    // Verifica il ruolo dell'utente
 	    if (Utente.Role.ADMIN.equals(utente.getRuolo())) {
