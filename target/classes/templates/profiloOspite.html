@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter - Profilo</title>
+    <link rel="stylesheet" href="/profilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+     <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                
+                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+            </ul>
+            </div>
+            </div>
+            
+             
+    <div class="main-content">
+        <div class="profilo-container">
+            <div class="profilo-info">
+                <h3>Informazioni Personali</h3>
+                <p><strong>Nome:</strong> <span th:text="${utente.nome}"></span></p>
+                <p><strong>Cognome:</strong> <span th:text="${utente.cognome}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${utente.email}"></span></p>
+                      <div class="follow-info"> 
+                      
+                <div class="following">
+                    <span class="follow-count" th:text="${utente.utentes1.size()}"></span>
+                     <a th:href="@{/profilo/{username}/following(username=${utente.username})}" class="follow-text">Following</a>
+                </div>
+                <div class="followers">
+                    <span class="follow-count" th:text="${utente.utentes2.size()}"></span>
+                    <a th:href="@{/profilo/{username}/followers(username=${utente.username})}" class="follow-text">Followers</a>
+                </div>
+            </div>
+            
+            
+                <div class="follow-action">
+                    <form th:action="@{/followUnfollow}" method="post">
+                        <input type="hidden" name="username" th:value="${utente.username}" />
+                        <button type="submit" class="follow-button" th:classappend="${isFollowing} ? 'unfollow-button' : 'follow-button'">
+                            <span th:if="${!isFollowing}" th:text="'Segui'"></span>
+                            <span th:if="${isFollowing}" th:text="'Smetti di seguire'"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+                      
+        </div>
+        
+        
+                
+                <!-- Lista dei tweet dell'utente -->
+            <div class="user-tweets">
+                <h3>Tweet di <span th:text="${utente.username}"></span></h3>
+                <ul class="tweet-list">
+                    <li th:each="tweet : ${utente.tweets}" class="tweet">
+                        <div class="tweet-content">
+                            <p th:text="${tweet.testo}"></p>
+                        </div>
+                        <div class="tweet-timestamp">
+                            <span th:text="${#dates.format(tweet.dataOra, 'dd-MM-yyyy HH:mm')}"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        
+         
+          
+            <div class="search-sidebar">
+            <form action="/cerca" method="get">
+                <div class="search-input">
+                    <input type="text" class="search-text" name="query" placeholder="Cerca...">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i> Cerca
+                    </button>
+                </div>
+            </form>
+        </div>
+    
+    
+    
+    
+        
+</body>
+</html>

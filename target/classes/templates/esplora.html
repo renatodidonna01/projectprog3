@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter - Categorie </title>
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+       
+     <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/admin/home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                
+                <li><a href="/admin/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+                
+                 <li><a href="/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
+        <!-- Aggiungi Cerca -->
+                  <li><a href="/cercatweet"><i class="fas fa-search"></i> Cerca</a></li>
+        
+        
+            </ul>
+                       
+            <div class="user-info">
+                <span id="logged-in-user" th:text="${utente.username}"></span>
+            </div> 
+            
+            
+        </div>   
+    
+    
+        <div class="main-content">
+            <div class="header">
+                <h2 class="header-title">Categorie: </h2>
+            </div>
+
+            <div class="user-list">
+                <ul>
+                    <li th:each="categoria : ${categorie}">
+                     <a th:href="@{/categoria/{categoria}(categoria=${categoria})}" th:text="${categoria}"></a>
+                                            
+                    </li>
+                </ul>
+            </div>
+        </div>
+       
+       
+                          
+   
+    
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

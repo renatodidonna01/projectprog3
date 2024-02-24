@@ -1,0 +1,247 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f8faff;
+}
+
+.container {
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar {
+    width: 280px;
+    height: 100%;
+    background-color: #ffffff;
+    position: fixed;
+    left: 5px;
+    top: 0;
+    padding-top: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #1da1f2;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar a.active {
+    background-color: #e1f5fe; /* Colore di sfondo per l'elemento attivo */
+}
+
+
+
+.search-sidebar {
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: fixed;
+    right: 20px;
+    top: 0;
+}
+
+.search-sidebar form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input input.search-text {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.search-input button.search-button {
+    padding: 12px;
+    background-color: #1da1f2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.search-input button.search-button i {
+    margin-right: 5px;
+}
+
+.user-info {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #1da1f2;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+
+.main-content {
+    padding: 20px;
+    margin-left: 300px;
+    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
+    max-width: 800px; /* Imposta una larghezza massima per grandi schermi */
+    box-sizing: border-box;
+}
+
+.profilo-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profilo-info h3, .user-tweets h3 {
+    color: #1da1f2;
+    margin-bottom: 15px;
+}
+
+.profilo-info p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.profilo-info strong {
+    color: #000;
+}
+
+.user-tweets {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.tweet-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tweet {
+    padding: 10px;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.tweet:last-child {
+    border-bottom: none;
+}
+
+.tweet-content {
+    font-size: 14px;
+    color: #333;
+    word-wrap: break-word; /* Permette al testo di andare a capo */
+    overflow-wrap: break-word; /* Gestisce le parole lunghe */
+}
+
+.tweet-timestamp {
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    background-color: #f44336; /* Rosso per indicare un'azione di logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}
+
+
+.follow-info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e1f5fe;
+    border-radius: 10px;
+}
+
+.following, .followers {
+    text-align: center;
+}
+
+.follow-count {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1da1f2;
+}
+
+.follow-text {
+    font-size: 14px;
+    color: #333;
+    text-decoration: none; /* Rimuove il sottolineato dai link */
+    cursor: pointer; /* Mostra il cursore come puntatore */
+}
+
+.follow-text:hover {
+    text-decoration: underline; /* Aggiunge un sottolineato quando si passa sopra con il mouse */
+    color: #0d8ecf; /* Cambia il colore del link quando si passa sopra con il mouse */
+}
+
+
+
+
+.follow-action {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.follow-button, .unfollow-button {
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #1da1f2; /* Blu per "Segui" */
+}
+
+.unfollow-button {
+    background-color: #f44336; /* Rosso per "Smetti di seguire" */
+}
+
+.follow-button:hover, .unfollow-button:hover {
+    opacity: 0.9;
+}
+
+

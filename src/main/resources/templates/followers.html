@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter - Followers</title>
+    <link rel="stylesheet" href="/followers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+     <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+            </ul>
+            </div>
+            </div>
+            
+             
+    <div class="main-content">
+        <div class="profilo-container">
+            
+                       
+                <!-- Lista dei followers -->
+         <div class="user-followers">
+            <h3>Follower di <span th:text="${utente.username}"></span></h3>
+            <ul class="follow-list">
+             <li th:each="follower : ${followers}" class="follower-item">
+            <span th:text="${follower.username}"></span> 
+            
+             </li>
+           </ul>
+         </div>
+
+                                 
+                </div>
+                </div>
+     
+            <div class="search-sidebar">
+            <form action="/cerca" method="get">
+                <div class="search-input">
+                    <input type="text" class="search-text" name="query" placeholder="Cerca...">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i> Cerca
+                    </button>
+                </div>
+            </form>
+        </div>
+    
+    
+                  
+</body>
+</html>           
+                
+                
+                
+                
+                
+                
+                
+                

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter - Home</title>
+    <link rel="stylesheet" href="cerca.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                
+                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+            </ul>
+            
+            
+            <div class="user-info">
+                <span id="logged-in-user" th:text="${username}"></span>
+            </div>
+        </div>
+
+        <div class="main-content">
+    <div class="header">
+        <h2 class="header-title">Home</h2>
+    </div>
+    
+    
+    
+    <div class="tweet-container">
+        <div class="tweet-input-container">
+            <form action="/home" method="POST" class="tweet-form">
+                <textarea placeholder="Che c'è di nuovo?" class="tweet-input" name="content"></textarea>                       
+                <button type="submit" class="tweet-post-button">Posta</button>
+            </form>
+        </div>
+
+        <div class="tweet-list">
+            <div th:each="tweet : ${timelineTweets}" class="tweet">
+                <div class="tweet-user">
+                    <span th:text="${tweet.utente.username}"></span>
+                </div>
+                <div class="tweet-content">
+                    <p th:text="${tweet.testo}"></p>
+                </div>
+                <div class="tweet-timestamp">
+                    <span th:text="${#dates.format(tweet.dataOra, 'dd-MM-yyyy HH:mm')}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+        
+           
+        <div class="search-sidebar">
+            <form action="/cerca" method="get">
+                <div class="search-input">
+                    <input type="text" class="search-text" name="query" placeholder="Cerca...">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i> Cerca
+                    </button>
+                
+                </form>
+                </div>
+                
+                <div class="risultati-ricerca">
+                <h3>Risultati Ricerca</h3>
+                <ul>
+                    <li th:each="utente : ${risultatiRicerca}" class="risultato-ricerca">
+                        <a th:href="@{/profilo/{username}(username=${utente.username})}" th:text="${utente.username}">Profilo</a>
+                    </li>
+                </ul>
+            </div>
+                
+                
+            
+        </div>
+    </div>
+    
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

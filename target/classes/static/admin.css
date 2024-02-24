@@ -1,0 +1,201 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f8faff;
+}
+
+.container {
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar {
+    width: 280px;
+    height: 100%;
+    background-color: #ffffff;
+    position: fixed;
+    left: 5px;
+    top: 0;
+    padding-top: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #1da1f2;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar a.active {
+    background-color: #e1f5fe;
+}
+
+.main-content {
+    padding: 20px;
+    margin-left: 300px;
+    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
+    max-width: 800px; /* Imposta una larghezza massima per grandi schermi */
+    box-sizing: border-box;
+}
+
+.header {
+    border-bottom: 2px solid #4AB3F4;
+    padding-bottom: 15px;
+}
+
+.header-title {
+    font-size: 30px;
+    margin: 0;
+    color: #4AB3F4;
+}
+
+.search-sidebar {
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: fixed;
+    right: 20px;
+    top: 0;
+}
+
+.search-sidebar form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input input.search-text {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.search-input button.search-button {
+    padding: 12px;
+    background-color: #1da1f2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.search-input button.search-button i {
+    margin-right: 5px;
+}
+
+.user-info {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #1da1f2;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.user-list {
+    padding: 20px; /* Spazio intorno agli elementi della lista */
+}
+
+.user-list h3 {
+    margin-bottom: 10px; /* Spazio tra il titolo della lista e gli elementi */
+    color: #333; /* Colore del testo per il titolo della lista */
+    font-size: 24px; /* Dimensione del testo per il titolo */
+}
+
+.user-list ul {
+    list-style: none; /* Rimuove i punti elenco */
+    padding: 0; /* Azzera il padding interno */
+}
+
+.user-list li {
+    padding: 10px; /* Spazio intorno a ciascun elemento della lista */
+    border: 1px solid #e1e1e1; /* Bordi sottili per ciascun elemento */
+    margin-bottom: 5px; /* Spazio tra gli elementi della lista */
+    border-radius: 5px; /* Bordi arrotondati per gli elementi della lista */
+    background-color: #f8f8f8; /* Colore di sfondo per ciascun elemento della lista */
+    font-size: 18px; /* Dimensione del testo per gli elementi della lista */
+    color: #333; /* Colore del testo per gli elementi */
+}
+
+
+
+.user-list li a {
+    text-decoration: none;
+    color: #1da1f2;
+    font-weight: bold;
+}
+
+.user-list li a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+.tweet-list {
+    margin-top: 20px;
+}
+
+.tweet {
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    color: #1da1f2;
+}
+
+.tweet-user {
+    font-weight: bold;
+    
+}
+
+.tweet-content {
+    
+    margin-top: 10px;
+    word-wrap: break-word; /* Permette al testo di andare a capo */
+    overflow-wrap: break-word; /* Gestisce le parole lunghe */
+}
+
+.tweet-timestamp {
+    
+    font-size: 14px;
+    text-align: right;
+    margin-top: 10px;
+}
+
+
+
+
+

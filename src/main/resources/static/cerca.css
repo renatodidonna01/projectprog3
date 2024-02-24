@@ -1,0 +1,234 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f8faff;
+}
+
+.container {
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar {
+    width: 280px;
+    height: 100%;
+    background-color: #ffffff;
+    position: fixed;
+    left: 5px;
+    top: 0;
+    padding-top: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #1da1f2;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar a.active {
+    background-color: #e1f5fe;
+}
+
+.main-content {
+    padding: 20px;
+    margin-left: 300px;
+    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
+    max-width: 800px; /* Imposta una larghezza massima per grandi schermi */
+    box-sizing: border-box;
+}
+
+.header {
+    border-bottom: 2px solid #4AB3F4;
+    padding-bottom: 15px;
+}
+
+.header-title {
+    font-size: 30px;
+    margin: 0;
+    color: #4AB3F4;
+}
+
+.tweet-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.tweet-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid #4AB3F4;
+    border-radius: 8px;
+    box-sizing: border-box;
+    min-height: 100px; /* Altezza iniziale maggiore */
+    resize: vertical; /* Permette all'utente di cambiare l'altezza */
+}
+
+.tweet-post-button {
+    background-color: #4AB3F4;
+    color: white;
+    padding: 12px 25px; /* Ingrandimento del bottone */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Aumento della dimensione del testo */
+    transition: background-color 0.3s;
+    display: block; /* Rende il bottone un blocco */
+    margin: 10px auto; /* Centra il bottone */
+}
+
+.tweet-post-button:hover {
+    background-color: #3A93D1;
+}
+
+/* Stili per la lista dei tweet */
+.tweet-list {
+    margin-top: 20px;
+}
+
+.tweet {
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.tweet-user {
+    font-weight: bold;
+    color: #333;
+}
+
+.tweet-content {
+    color: #666;
+    margin-top: 10px;
+    word-wrap: break-word; /* Permette al testo di andare a capo */
+    overflow-wrap: break-word; /* Gestisce le parole lunghe */
+}
+
+.tweet-timestamp {
+    color: #888;
+    font-size: 14px;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.search-sidebar {
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: fixed;
+    right: 20px;
+    top: 0;
+}
+
+.search-sidebar form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input input.search-text {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.search-input button.search-button {
+    padding: 12px;
+    background-color: #1da1f2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.search-input button.search-button i {
+    margin-right: 5px;
+}
+
+.user-info {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #1da1f2;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+
+
+
+
+.risultati-ricerca {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.risultati-ricerca h3 {
+    margin-bottom: 10px;
+    color: #1da1f2;
+}
+
+.risultati-ricerca ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.risultati-ricerca li {
+    padding: 10px;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.risultati-ricerca li:last-child {
+    border-bottom: none;
+}
+
+.risultati-ricerca a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.risultati-ricerca a:hover {
+    text-decoration: underline;
+}

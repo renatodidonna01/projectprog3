@@ -1,0 +1,153 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f8faff;
+}
+
+.container {
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar {
+    width: 280px;
+    height: 100%;
+    background-color: #ffffff;
+    position: fixed;
+    left: 5px;
+    top: 0;
+    padding-top: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #1da1f2;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar a.active {
+    background-color: #e1f5fe;
+}
+
+.main-content {
+    padding: 20px;
+    margin-left: 300px;
+    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
+    max-width: 800px; /* Imposta una larghezza massima per grandi schermi */
+    box-sizing: border-box;
+}
+
+.header {
+    border-bottom: 2px solid #4AB3F4;
+    padding-bottom: 15px;
+}
+
+.header-title {
+    font-size: 30px;
+    margin: 0;
+    color: #4AB3F4;
+}
+
+
+
+.search-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.search-input {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-text {
+    flex-grow: 1;
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-button {
+    padding: 10px 15px;
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search-button i {
+    margin-right: 5px;
+}
+
+.risultati-ricerca {
+    margin-top: 20px;
+    color: #1da1f2;
+}
+
+.risultati-ricerca h3 {
+    margin-bottom: 15px;
+    color: #1da1f2;
+}
+
+.tweet {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    color: #1da1f2;
+}
+
+.tweet:last-child {
+    border-bottom: none;
+    
+}
+
+.tweet-user {
+    font-weight: bold;
+    margin-bottom: 5px;
+    
+}
+
+.tweet-content {
+    margin-bottom: 5px;
+    
+    
+}
+
+.tweet-content p {
+    margin: 0;
+    
+}
+
+.tweet-timestamp {
+    text-align: right;
+    
+    font-size: 12px;
+}
+
+.hashtag {
+    
+    font-weight: bold;
+}

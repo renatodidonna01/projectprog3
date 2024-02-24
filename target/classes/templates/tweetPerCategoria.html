@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter - Categorie </title>
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+       
+     <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="/admin/home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                
+                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+                
+                 <li><a href="/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
+        <!-- Aggiungi Cerca -->
+                  <li><a href="/cercatweet"><i class="fas fa-search"></i> Cerca</a></li>
+        
+        
+            </ul>
+                       
+            <div class="user-info">
+                <span id="logged-in-user" th:text="${utente.username}"></span>
+            </div> 
+            
+            <!-- Opzionalmente, puoi includere un link per tornare indietro o a una pagina specifica -->
+        <a href="/esplora">Torna alle Categorie</a>
+            
+        </div>   
+        
+        
+        <div class="main-content">
+            <div class="header">
+                 <h2 class="header-title" th:text="${categoriaNome} + ': '"></h2>
+            </div>
+        
+        
+        
+        <div class="tweet-list">
+            <ul>
+                <!-- Itera su ogni tweet e mostra i dettagli -->
+                <div th:each="tweet : ${tweet}">
+                    <div class="tweet">
+                    
+                    <div class="tweet-user">
+                    <span th:text="${tweet.utente.username}"></span>
+                    </div>
+                
+                    <div class="tweet-content">
+                        <p th:text="${tweet.testo}">Testo del tweet</p>
+                        <!-- Includi altre informazioni sul tweet qui, se desiderato -->
+                        <span th:text="${tweet.hashtag.testo}">Hashtag</span>
+                        
+                        </div>
+                        
+                        
+                        
+                        <div class="tweet-timestamp">
+                        <span th:text="${tweet.dataOra}">Data/Ora</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    
+    </div>
+    
+</body>
+</html>
+
+       
+       
+                          
+   
+    
+    
+
+ 

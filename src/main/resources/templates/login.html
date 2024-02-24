@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/login.css">
+   
+    
+    
+    
+</head>
+<body>
+
+
+ <div th:if="${errore}" class="alert alert-danger">
+    <p th:text="${errore}" class="custom-font" style="color: red;"></p>
+</div>
+
+
+
+ 
+
+    
+    <div class="login-container"> 
+       
+    <img src="\images\logo.png" alt="Twitter Logo" class="logo">  
+        <form action="/login" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+         <p>Non hai un account? <a href="/registrazione">Registrati subito</a></p>
+    </div>
+</body>
+</html>
