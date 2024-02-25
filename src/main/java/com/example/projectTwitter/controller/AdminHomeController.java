@@ -1,12 +1,9 @@
 package com.example.projectTwitter.controller;
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.UtenteService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,26 +22,20 @@ public class AdminHomeController {
 	 @GetMapping("/admin/home")
 	 public String adminHome(HttpServletRequest request, Model model) {
 		 
+		 Utente utente = utenteService.getUtenteLoggato(request);
 		 
-		 if (request.getSession().getAttribute("username") == null)
+		 if (utente == null)
 		 {
 			 return "redirect:/login";
 		 }
-		
-		     
+				     
 		//creo lista che mi serve per aggiungere gli utenti con piu tweet
-		    List<Utente> utentiAttivi = new ArrayList<>();
-		    
-		    utentiAttivi=utenteService.UtentiAttiviTweet();
-		    String username = (String) request.getSession().getAttribute("username");
-		    
-		    Utente utente = utenteService.trovaUtentePerUsername(username);
-			   
-		    
+		 List<Utente> utentiAttivi = utenteService.utentiAttiviTweet();
+		 
+			    		    		    
 		    model.addAttribute("utente", utente);
-		    
 		    model.addAttribute("utentiAttivi", utentiAttivi);
-		    		    
+		    
 		    return "adminHome"; 		 	 
 	 }
 	 
@@ -53,14 +44,14 @@ public class AdminHomeController {
 	 
 	 @GetMapping("/admin/profilo")
 		public String AdminvisualizzaProfilo(HttpServletRequest request, Model model) {
-		    String username = (String) request.getSession().getAttribute("username");
+		 
+		 Utente utente = utenteService.getUtenteLoggato(request);
+		 String username=utente.getUsername();
 		    
 		    if (username == null) {
 		        return "redirect:/login";
 		    }
-		    
-		    Utente utente = utenteService.trovaUtentePerUsername(username);
-		    		    
+		    		    		    
 		    model.addAttribute("utente", utente);
 	        
 		    return "profiloAdmin";
@@ -72,9 +63,11 @@ public class AdminHomeController {
 		
 		@GetMapping("/admin/profilo/{username}")
 		public String AdminmostraProfilo(@PathVariable String username, HttpServletRequest request, Model model) {
-		    String currentUsername = (String) request.getSession().getAttribute("username");
+		    
 
-		    Utente currentUser = utenteService.trovaUtentePerUsername(currentUsername);
+		    Utente currentUser = utenteService.getUtenteLoggato(request);
+		    
+		    //String currentUsername = currentUser.getUsername();
 		    Utente targetUser = utenteService.trovaUtentePerUsername(username);
 
 		    if (currentUser == null || targetUser == null) {

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.repository.UtenteRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 //gestione autenticazione utenti
 
 
@@ -24,9 +26,17 @@ public class CustomAuthenticationService {
 
     public boolean authenticate(String username, String password) {
         Utente user = userRepository.findByUsername(username);
-
 // Verifica se l'utente esiste e la password è corretta,confrontando la password fornita con quella hashata nel database 
         return user != null && passwordEncoder.matches(password, user.getPassword());
+    }
+    
+    
+    public boolean isUserLoggedIn(HttpServletRequest request) {
+        return request.getSession().getAttribute("username") != null;
+    }
+
+    public String getCurrentUsername(HttpServletRequest request) {
+        return (String) request.getSession().getAttribute("username");
     }
     
 }

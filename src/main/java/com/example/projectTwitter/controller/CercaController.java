@@ -1,9 +1,5 @@
 package com.example.projectTwitter.controller;
-
-
-
 import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.projectTwitter.model.Tweet;
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.UtenteService;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 
@@ -30,8 +25,9 @@ public class CercaController {
 		 public String cercaTweet(HttpServletRequest request,@RequestParam(required = false)String query,  Model model) {
 		    
 		     List<Tweet> risultatiRicerca = utenteService.RicercaTweet(query);	
-		     String username = (String) request.getSession().getAttribute("username");
-		     Utente utente = utenteService.trovaUtentePerUsername(username);
+		     
+		     Utente utente =  utenteService.getUtenteLoggato(request);
+			 
 		     
 		     model.addAttribute("utente", utente);
 		     model.addAttribute("risultatiRicerca", risultatiRicerca);

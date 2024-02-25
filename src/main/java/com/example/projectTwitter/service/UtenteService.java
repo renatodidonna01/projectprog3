@@ -2,6 +2,7 @@ package com.example.projectTwitter.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.projectTwitter.exception.TweetValidationException;
 import com.example.projectTwitter.exception.UtenteNotFoundException;
 import com.example.projectTwitter.model.Hashtag;
 import com.example.projectTwitter.model.Tweet;
@@ -10,6 +11,10 @@ import com.example.projectTwitter.model.Utente.Role;
 import com.example.projectTwitter.repository.HashtagRepository;
 import com.example.projectTwitter.repository.TweetRepository;
 import com.example.projectTwitter.repository.UtenteRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.Collections;
 import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -93,10 +98,7 @@ public class UtenteService {
     
     
  
-   public List <Utente> UtentiAttiviTweet()
-   {
-	    return utenteRepository.findUsersWithMostTweets();	   
-   }
+  
     
     
 	public List<Utente> trovaSeguaciUtente(String username) {
@@ -111,6 +113,15 @@ public class UtenteService {
 	
 
 	public Tweet pubblicaTweet(String username, Tweet tweet) {
+		
+		if (tweet.getTesto() == null || tweet.getTesto().isEmpty()) {
+	        throw new TweetValidationException("Devi scrivere qualcosa per inviare un tweet");
+	    }
+	    if (tweet.getTesto().length() > 140) {
+	        throw new TweetValidationException("Il tweet non può superare i 140 caratteri.");
+	    }
+	    
+	    
 		return tweetRepository.save(tweet);	
 	} 
 	
@@ -173,5 +184,43 @@ public class UtenteService {
     public List<Tweet> RicercaTweet(String query) {
         return tweetRepository.findByTestoContainingIgnoreCase(query);
     } 
+    
+    
+    
+    public Utente getUtenteLoggato(HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
+        if (username == null) {
+            return null; // Nessun utente loggato
+        }
+        return trovaUtentePerUsername(username);
+        }
+    
+    
+    public boolean verificaRuoloUtente(Utente utente) {
+        return Utente.Role.ADMIN.equals(utente.getRuolo());
+    }
+    
+    
+    public List<Utente> cercaUtentiConQuery(String query, String usernameEscluso) {
+        if (query != null && !query.trim().isEmpty()) {
+            return cercaUtenti(query, usernameEscluso);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+
+	public List<Utente> utentiAttiviTweet() {
+		return utenteRepository.findUsersWithMostTweets();	
+	}
+    
+    
+    
+
+    
+    
+    
+    
+    
     
 	}

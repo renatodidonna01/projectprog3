@@ -1,10 +1,5 @@
 package com.example.projectTwitter.controller;
-
-
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,101 +7,79 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.example.projectTwitter.exception.TweetValidationException;
 import com.example.projectTwitter.model.Hashtag;
 import com.example.projectTwitter.model.Tweet;
 import com.example.projectTwitter.model.Utente;
+import com.example.projectTwitter.service.TweetService;
 import com.example.projectTwitter.service.UtenteService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
-
-	
 	private UtenteService utenteService;
+	private TweetService tweetService;
 	
-	 public HomeController(UtenteService utenteService) {
+	 public HomeController(UtenteService utenteService,TweetService tweetService) {
 	        this.utenteService = utenteService;
-	    }
-	 
+	        this.tweetService=tweetService;
+	        
+	    }	 
 	 
 	 
 	@GetMapping("/home")
 	public String home(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
-		 if (request.getSession().getAttribute("username") == null)
-		 {
-			 return "redirect:/login";
-		 }
-	    String username = (String) request.getSession().getAttribute("username");
-	    
-	    Utente utente = utenteService.trovaUtentePerUsername(username);
-	    
-	    // Aggiungi qui la logica di ricerca se il parametro query non è vuoto
-	    if (query != null && !query.trim().isEmpty()) {
-	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtenti(query, username);
-	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);	       
-	    }
-	    	    
-	    // Verifica il ruolo dell'utente
-	    if (Utente.Role.ADMIN.equals(utente.getRuolo())) {
-	        return "redirect:/admin/home"; // Reindirizza alla home dell'admin se l'utente è un admin
+		Utente username = utenteService.getUtenteLoggato(request);
+		
+	    if (username == null) {
+	        return "redirect:/login";
 	    }
 	    
-	    	    
-	    System.out.println("Username from session: " + username); // Aggiungi questo log
+	    // Verifica il ruolo dell'utente,se è admin va alla home
+	    boolean isAdmin = utenteService.verificaRuoloUtente(username);
+	    if (isAdmin) {
+	        return "redirect:/admin/home";
+	    }
+	
+	   
+	    // cerca utenti 
+	    List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, username.getUsername());
+        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
 	    
-	    //recupero gli utenti seguiti
-	    List<Utente> utentiSeguiti = utenteService.trovaSeguitiUtente(username);
-	    
+	    	    	  	    
 	    //creo lista che mi serve per aggiungere i tweet dei seguiti
-	    List<Tweet> timelineTweets = new ArrayList<>();
-
-	    
-	    //aggiungo i tweet delle persone che segue l'utente 
-	    for(Utente utenteSeguito:utentiSeguiti)
-	    {
-	    	List<Tweet> tweetUtenteSeguito =utenteService.trovaTuttiTweetUtente(utenteSeguito.getUsername());
-	    	timelineTweets.addAll(tweetUtenteSeguito);
-	    }
-	    
-	    //ordino i tweet dalla data più recente
-	    Collections.sort(timelineTweets, Comparator.comparing(Tweet::getDataOra,Collections.reverseOrder()));
-	    
-	    
-	    	    
+	    List<Tweet> timelineTweets = tweetService.getTimelineTweets(username.getUsername());
+	   
 	    // Recupera tutti gli hashtag
 	    List<Hashtag> hashtags = utenteService.trovaTuttiHashtag();
 	    
-	    // Altri codici e logica necessari
-	    
+	    	    
 	    model.addAttribute("hashtags", hashtags); 
-	    model.addAttribute("username", username);
+	    model.addAttribute("username", username.getUsername());
 	    model.addAttribute("timelineTweets", timelineTweets);
 	    return "home";
+		
 	}
-	
-	
 	
 
 	
 	@PostMapping("/home")
 	public String pubblicaTweet(@RequestParam("content") String content, HttpServletRequest request, @RequestParam("hashtag") Integer hashtagId, Model model, RedirectAttributes redirectAttributes) {
-	    String username = (String) request.getSession().getAttribute("username");
-
-	    // Verifica che il contenuto non sia vuoto
-	    if (content == null || content.isEmpty()) {
-	        redirectAttributes.addFlashAttribute("errore", "Devi scrivere qualcosa per inviare un tweet");
+	    Utente utente =  utenteService.getUtenteLoggato(request);
+	    String username=utente.getUsername();
+	    	    
+	    //controllo validità tweet
+	    try {
+	        tweetService.validaTweet(content); // Valida il tweet
+	    } catch (TweetValidationException e) {
+	        redirectAttributes.addFlashAttribute("errore", e.getMessage());
 	        return "redirect:/home";
 	    }
-
-	    // Verifica la lunghezza del tweet
-	    if (content.length() > 140) {
-	        redirectAttributes.addFlashAttribute("errore", "Il tweet non può superare i 140 caratteri.");
-	        return "redirect:/home";
-	    }
-
-	    // Recupera l'utente e l'hashtag dal database
-	    Utente utente = utenteService.trovaUtentePerUsername(username);
+	    
+	  //se valido
+	  // Recupera l'utente e l'hashtag dal database
+	    
 	    Hashtag hashtag = utenteService.trovaHashtagPerId(hashtagId); 
 
 	    // Crea e salva il nuovo tweet
@@ -123,8 +96,4 @@ public class HomeController {
 	    return "redirect:/home";
 	}
 
-	 
-	 
-	
-	
 }

@@ -26,15 +26,13 @@ public class ProfiloController {
 
 	@GetMapping("/profilo")
 	public String visualizzaProfilo(HttpServletRequest request, Model model) {
-	    String username = (String) request.getSession().getAttribute("username");
+		Utente utente =  utenteService.getUtenteLoggato(request);
+	    String username=utente.getUsername();
 	    
 	    if (username == null) {
 	        return "redirect:/login";
 	    }
-	    
-	    Utente utente = utenteService.trovaUtentePerUsername(username);
-	    
-  
+	     
 	    model.addAttribute("utente", utente);
         
 	    return "profilo";
@@ -43,8 +41,9 @@ public class ProfiloController {
 			
 	@GetMapping("/profilo/{username}")
 	public String mostraProfilo(@PathVariable String username, HttpServletRequest request, Model model) {
-	    String currentUsername = (String) request.getSession().getAttribute("username");
-	    Utente currentUser = utenteService.trovaUtentePerUsername(currentUsername);
+	    
+	    Utente currentUser = utenteService.getUtenteLoggato(request);
+	    
 	    Utente targetUser = utenteService.trovaUtentePerUsername(username);
 
 	    if (currentUser == null) {
@@ -65,6 +64,7 @@ public class ProfiloController {
 
 	@PostMapping("/followUnfollow")
 	public String followUnfollow(@RequestParam String username, HttpServletRequest request) {
+		
 	    String currentUsername = (String) request.getSession().getAttribute("username");
 	    Utente currentUser = utenteService.trovaUtentePerUsername(currentUsername);
 	    Utente targetUser = utenteService.trovaUtentePerUsername(username);
@@ -102,7 +102,7 @@ public class ProfiloController {
 
 	    
 	    // Verifica il ruolo dell'utente corrente
-	    if (Utente.Role.ADMIN.equals(currentUser.getRuolo())) {
+	    if (utenteService.verificaRuoloUtente(currentUser)) {
 	        return "adminFollowing"; // Pagina per l'admin
 	        
 	    } else {
@@ -127,13 +127,12 @@ public class ProfiloController {
 	    
 	    
 	    // Verifica il ruolo dell'utente corrente
-	    if (Utente.Role.ADMIN.equals(currentUser.getRuolo())) {
-	        return "adminFollowers"; // Pagina per l'admin
+	    if (utenteService.verificaRuoloUtente(currentUser)) {
+	        return "adminFollowing"; // Pagina per l'admin
+	        
 	    } else {
-	        return "followers"; // Pagina per l'utente normale
-	    }
-
-	    
+	        return "following"; // Pagina per l'utente normale
+	    }	    
 	}
 
    }
