@@ -85,22 +85,37 @@ public class ProfiloController {
 	
 	
 	@GetMapping("/profilo/{username}/following")
-	public String mostraFollowing(@PathVariable String username, Model model) {
+	public String mostraFollowing(HttpServletRequest request,@PathVariable String username, Model model) {
+		String currentUsername = (String) request.getSession().getAttribute("username");
+		Utente currentUser=utenteService.trovaUtentePerUsername(currentUsername);
+		
 	    Utente utente = utenteService.trovaUtentePerUsername(username);
 	    if (utente == null) {
 	        throw new UtenteNotFoundException("Utente non trovato.");
 	    }
 
 	    List<Utente> following = utente.getUtentes1();
+	    
+	    
 	    model.addAttribute("utente", utente);
 	    model.addAttribute("followings", following);
 
-	    return "following";
+	    
+	    // Verifica il ruolo dell'utente corrente
+	    if (Utente.Role.ADMIN.equals(currentUser.getRuolo())) {
+	        return "adminFollowing"; // Pagina per l'admin
+	        
+	    } else {
+	        return "following"; // Pagina per l'utente normale
+	    }
+	    
 	}
 
 	
 	@GetMapping("/profilo/{username}/followers")
-	public String mostraFollowers(@PathVariable String username, Model model) {
+	public String mostraFollowers(HttpServletRequest request,@PathVariable String username, Model model) {
+		String currentUsername = (String) request.getSession().getAttribute("username");
+		Utente currentUser=utenteService.trovaUtentePerUsername(currentUsername);
 	    Utente utente = utenteService.trovaUtentePerUsername(username);
 	    if (utente == null) {
 	        throw new UtenteNotFoundException("Utente non trovato.");
@@ -109,14 +124,16 @@ public class ProfiloController {
 	    List<Utente> followers = utente.getUtentes2();
 	    model.addAttribute("utente", utente);
 	    model.addAttribute("followers", followers);
+	    
+	    
+	    // Verifica il ruolo dell'utente corrente
+	    if (Utente.Role.ADMIN.equals(currentUser.getRuolo())) {
+	        return "adminFollowers"; // Pagina per l'admin
+	    } else {
+	        return "followers"; // Pagina per l'utente normale
+	    }
 
-	    return "followers";
+	    
 	}
 
-	
-	
-	
-	
-	
-	
    }

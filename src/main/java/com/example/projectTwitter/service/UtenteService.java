@@ -150,10 +150,10 @@ public class UtenteService {
 	        throw new UtenteNotFoundException("Followed con username " + followedUsername + " non trovato.");
 	      }  
 
-	    // Rimuovi followed alla lista dei seguiti di follower
+	    // Rimuovi follower alla lista dei seguiti di follower
 	    follower.getUtentes1().remove(followed);
 	    
-	    //rimuovi il follower dalla lista del followed
+	    //rimuovi il followed dalla lista del followed
 	    followed.getUtentes2().remove(follower);
 
 	    // Rimuovi il follower nel repository
@@ -173,9 +173,5 @@ public class UtenteService {
     public List<Tweet> RicercaTweet(String query) {
         return tweetRepository.findByTestoContainingIgnoreCase(query);
     } 
-    
-    
-    
-    
     
 	}

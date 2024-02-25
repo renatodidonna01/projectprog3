@@ -23,9 +23,8 @@ public class Tweet implements Serializable {
 	
 	private String testo;
 
-	//bi-directional many-to-one association to Commento
-	@OneToMany(mappedBy="tweet")
-	private List<Commento> commentos;
+	
+	
 
 	 @ManyToOne
 	    @JoinColumn(name = "ID_Hashtag")
@@ -72,27 +71,9 @@ public class Tweet implements Serializable {
 		this.testo = testo;
 	}
 
-	public List<Commento> getCommentos() {
-		return this.commentos;
-	}
 
-	public void setCommentos(List<Commento> commentos) {
-		this.commentos = commentos;
-	}
 
-	public Commento addCommento(Commento commento) {
-		getCommentos().add(commento);
-		commento.setTweet(this);
 
-		return commento;
-	}
-
-	public Commento removeCommento(Commento commento) {
-		getCommentos().remove(commento);
-		commento.setTweet(null);
-
-		return commento;
-	}
 
 
 

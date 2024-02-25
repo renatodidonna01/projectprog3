@@ -36,7 +36,8 @@
                 <div class="following">
                     <span class="follow-count" th:text="${utente.utentes1.size()}"></span>
                      <a th:href="@{/profilo/{username}/following(username=${utente.username})}" class="follow-text">Following</a>
-                </div>
+                </div>  
+                
                 <div class="followers">
                     <span class="follow-count" th:text="${utente.utentes2.size()}"></span>
                     <a th:href="@{/profilo/{username}/followers(username=${utente.username})}" class="follow-text">Followers</a>
@@ -44,15 +45,7 @@
             </div>
             
             
-                <div class="follow-action">
-                    <form th:action="@{/followUnfollow}" method="post">
-                        <input type="hidden" name="username" th:value="${utente.username}" />
-                        <button type="submit" class="follow-button" th:classappend="${isFollowing} ? 'unfollow-button' : 'follow-button'">
-                            <span th:if="${!isFollowing}" th:text="'Segui'"></span>
-                            <span th:if="${isFollowing}" th:text="'Smetti di seguire'"></span>
-                        </button>
-                    </form>
-                </div>
+                
             </div>
                       
         </div>

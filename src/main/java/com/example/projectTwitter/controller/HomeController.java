@@ -6,15 +6,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.projectTwitter.model.Hashtag;
 import com.example.projectTwitter.model.Tweet;
 import com.example.projectTwitter.model.Utente;
@@ -49,9 +46,7 @@ public class HomeController {
 	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtenti(query, username);
 	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);	       
 	    }
-	    
-	    
-	    
+	    	    
 	    // Verifica il ruolo dell'utente
 	    if (Utente.Role.ADMIN.equals(utente.getRuolo())) {
 	        return "redirect:/admin/home"; // Reindirizza alla home dell'admin se l'utente è un admin

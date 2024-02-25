@@ -38,19 +38,13 @@ public   class Utente implements Serializable {
 		    ADMIN
 		}
 
-	//bi-directional many-to-one association to Commento
-	@OneToMany(mappedBy="utente")
-	private List<Commento> commentos;
+	
 	
 	
 	@OneToMany(mappedBy = "utente")
     private List<Tweet> tweets;
 	
-
 	
-	
-	
-
 	//bi-directional many-to-many association to Utente
 	@ManyToMany
 	@JoinTable(
@@ -127,27 +121,8 @@ public   class Utente implements Serializable {
         this.ruolo = ruolo;
     }
 
-	public List<Commento> getCommentos() {
-		return this.commentos;
-	}
+	
 
-	public void setCommentos(List<Commento> commentos) {
-		this.commentos = commentos;
-	}
-
-	public Commento addCommento(Commento commento) {
-		getCommentos().add(commento);
-		commento.setUtente(this);
-
-		return commento;
-	}
-
-	public Commento removeCommento(Commento commento) {
-		getCommentos().remove(commento);
-		commento.setUtente(null);
-
-		return commento;
-	}
 
 	public List<Tweet> getTweets() {
 		return this.tweets;
@@ -156,8 +131,6 @@ public   class Utente implements Serializable {
 	public void setTweets(List<Tweet> tweets) {
 		this.tweets = tweets;
 	}
-
-
 
 	public List<Utente> getUtentes1() {
 		return this.utentes1;
@@ -174,7 +147,5 @@ public   class Utente implements Serializable {
 	public void setUtentes2(List<Utente> utentes2) {
 		this.utentes2 = utentes2;
 	}
-	
-	
-	
+		
 }

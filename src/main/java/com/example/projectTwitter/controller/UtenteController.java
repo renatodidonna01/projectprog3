@@ -7,6 +7,8 @@ import com.example.projectTwitter.model.Tweet;
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.UtenteService;
 //la classe è un controller che gestisce le richieste HTTP
+
+/*
 @RestController
 
 //specifica il prefisso dell'url
@@ -38,7 +40,7 @@ public class UtenteController {
         return utenteService.trovaTuttiUtenti();
     }
     
-     */
+    
     
     //trova tutti i tweet di un utente
     @GetMapping("/{username}/tweet")
@@ -76,5 +78,5 @@ public class UtenteController {
     
 }
     
-    
+     */
     

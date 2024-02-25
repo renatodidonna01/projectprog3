@@ -11,8 +11,14 @@
      <div class="container">
         <div class="sidebar">
             <ul>
-                <li><a href="/home" class="active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+                <li><a href="/admin/home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                
+                <li><a href="/admin/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+               
+                 <li><a href="/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
+                                       <!-- Aggiungi Cerca -->
+                  <li><a href="/cercatweet"><i class="fas fa-search"></i> Cerca</a></li>
+                
             </ul>
             </div>
            
@@ -24,10 +30,10 @@
                        
                 <!-- Lista dei followers -->
          <div class="user-followers">
-            <h3>Follower di <span th:text="${utente.username}"></span></h3>
+            <h3>Following di <span th:text="${utente.username}"></span></h3>
             <ul class="follow-list">
-             <li th:each="follower : ${followers}" class="follower-item">
-            <span th:text="${follower.username}"></span> 
+             <li th:each="following : ${followings}" class="follower-item">
+            <span th:text="${following.username}"></span> 
             
              </li>
            </ul>
@@ -35,19 +41,15 @@
 
                                  
                 </div>
-                 </div>
                 </div>
+                 </div>
      
-          
+           
     
-                 
+    
+                  
 </body>
 </html>           
-                
-                
-                
-                
-                
                 
                 
                 

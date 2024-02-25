@@ -51,48 +51,11 @@
         
         
         
-                <div class="follow-info">
-                
-                  <div class="following">
-                    <span class="follow-count" th:text="${utente.utentes1.size()}"></span>
-                 <a th:href="@{/admin/profilo/{username}/following(username=${utente.username})}" class="follow-text">Following</a>
-                </div>
-            </div>
             
-                
-                <div class="followers">
-                    <span class="follow-count" th:text="${utente.utentes2.size()}"></span>
-                 <a th:href="@{/admin/profilo/{username}/followers(username=${utente.username})}" class="follow-text">Followers</a>
-                </div>
-            </div>
-                
-                
-        
-        
-                
-                <!-- Lista dei tweet dell'utente -->
-            <div class="user-tweets">
-                <h3>Tweet di <span th:text="${utente.username}"></span></h3>
-                <ul class="tweet-list">
-                    <li th:each="tweet : ${utente.tweets}" class="tweet">
-                        <div class="tweet-content">
-                            <p th:text="${tweet.testo}"></p>
-                        </div>
-                        <div class="tweet-timestamp">
-                            <span th:text="${#dates.format(tweet.dataOra, 'dd-MM-yyyy HH:mm')}"></span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+               
         
          
-          
-            
-    
-    
-      
+               
                       
 </body>
 </html>
