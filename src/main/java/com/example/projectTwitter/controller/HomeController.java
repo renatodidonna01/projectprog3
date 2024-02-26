@@ -13,6 +13,9 @@ import com.example.projectTwitter.model.Tweet;
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.TweetService;
 import com.example.projectTwitter.service.UtenteService;
+import com.example.projectTwitter.strategy.AdminHomePageStrategy;
+import com.example.projectTwitter.strategy.HomePageStrategy;
+import com.example.projectTwitter.strategy.UserHomePageStrategy;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -30,36 +33,22 @@ public class HomeController {
 	 
 	@GetMapping("/home")
 	public String home(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
-		Utente username = utenteService.getUtenteLoggato(request);
+		Utente utente = utenteService.getUtenteLoggato(request);
 		
-	    if (username == null) {
+	    if (utente == null) {
 	        return "redirect:/login";
-	    }
+	    }	    
+	    HomePageStrategy strategy;	    
 	    
 	    // Verifica il ruolo dell'utente,se è admin va alla home
-	    boolean isAdmin = utenteService.verificaRuoloUtente(username);
+	    boolean isAdmin = utenteService.verificaRuoloUtente(utente);
 	    if (isAdmin) {
-	        return "redirect:/admin/home";
+	    	strategy = new AdminHomePageStrategy();
+	    } else {
+	        strategy = new UserHomePageStrategy(tweetService, utenteService);
 	    }
-	
-	   
-	    // cerca utenti 
-	    List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, username.getUsername());
-        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
-	    
-	    	    	  	    
-	    //creo lista che mi serve per aggiungere i tweet dei seguiti
-	    List<Tweet> timelineTweets = tweetService.getTimelineTweets(username.getUsername());
-	   
-	    // Recupera tutti gli hashtag
-	    List<Hashtag> hashtags = utenteService.trovaTuttiHashtag();
-	    
-	    	    
-	    model.addAttribute("hashtags", hashtags); 
-	    model.addAttribute("username", username.getUsername());
-	    model.addAttribute("timelineTweets", timelineTweets);
-	    return "home";
-		
+		   
+	    return strategy.loadHomePage(model, utente, query);		
 	}
 	
 

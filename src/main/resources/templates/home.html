@@ -92,18 +92,17 @@
      </div>
         
          
-        <div class="search-sidebar">
+           <div class="search-sidebar">
             <form action="/home" method="get">
                 <div class="search-input">
                     <input type="text" class="search-text" name="query" placeholder="Cerca...">
                     <button type="submit" class="search-button">
                         <i class="fas fa-search"></i> Cerca
                     </button>
-                </div>              
-               </form>
-               
-               
-               <div th:if="${risultatiRicercaUtenti}"   class="risultati-ricerca">
+                </div>
+            </form>
+            
+            <div th:if="${risultatiRicercaUtenti}"   class="risultati-ricerca">
                <h3>Risultati Utenti:</h3>
                <ul>
                <li th:each="utente : ${risultatiRicercaUtenti}">
@@ -111,6 +110,9 @@
                </li>
                </ul>
                </div>
+               
+               
+        </div>
 
          </div>
 

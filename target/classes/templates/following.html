@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter - Followers</title>
     <link rel="stylesheet" href="/followers.css">
+    <link rel="stylesheet" href="/common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
      <div class="container">
         <div class="sidebar">
             <ul>
-                <li><a href="/home" class="active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+                <li><a href="/home" ><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/profilo" class="active"><i class="fas fa-user"></i> Profilo</a></li>
             </ul>
             </div>
            
@@ -37,7 +38,29 @@
                 </div>
                 </div>
                  </div>
-     
+          
+           <div class="search-sidebar">
+            <form th:action="@{/profilo/{username}/following (username=${username})}" method="get">
+                <div class="search-input">
+                    <input type="text" class="search-text" name="query" placeholder="Cerca...">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i> Cerca
+                    </button>
+                </div>
+            </form>
+            
+            <div th:if="${risultatiRicercaUtenti}"   class="risultati-ricerca">
+               <h3>Risultati Utenti:</h3>
+               <ul>
+               <li th:each="utente : ${risultatiRicercaUtenti}">
+               <a th:href="@{/profilo/{username}(username=${utente.username})}" th:text="${utente.username}">Profilo</a>     
+               </li>
+               </ul>
+               </div>
+               
+               
+        </div>
+               </div>
            
     
     

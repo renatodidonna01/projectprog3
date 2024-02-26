@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.projectTwitter.exception.UtenteNotFoundException;
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.UtenteService;
+import com.example.projectTwitter.strategy.AdminProfileStrategy;
+import com.example.projectTwitter.strategy.ProfileStrategy;
+import com.example.projectTwitter.strategy.UserProfileStrategy;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -25,14 +28,18 @@ public class ProfiloController {
 	    }
 
 	@GetMapping("/profilo")
-	public String visualizzaProfilo(HttpServletRequest request, Model model) {
+	public String visualizzaProfilo(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
 		Utente utente =  utenteService.getUtenteLoggato(request);
 	    String username=utente.getUsername();
 	    
 	    if (username == null) {
 	        return "redirect:/login";
 	    }
-	     
+	    
+	     // cerca utenti 
+        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, utente.getUsername());
+        
+        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
 	    model.addAttribute("utente", utente);
         
 	    return "profilo";
@@ -40,7 +47,7 @@ public class ProfiloController {
 	
 			
 	@GetMapping("/profilo/{username}")
-	public String mostraProfilo(@PathVariable String username, HttpServletRequest request, Model model) {
+	public String mostraProfilo(@RequestParam(required = false) String query,@PathVariable String username, HttpServletRequest request, Model model) {
 	    
 	    Utente currentUser = utenteService.getUtenteLoggato(request);
 	    
@@ -49,11 +56,18 @@ public class ProfiloController {
 	    if (currentUser == null) {
 	        throw new UtenteNotFoundException("Utente corrente non trovato.");
 	    }
+	    
 	    if (targetUser == null) {
 	        throw new UtenteNotFoundException("Utente di destinazione non trovato.");
 	    }
-
+             
 	    boolean isFollowing = currentUser.getUtentes1().contains(targetUser);
+	    
+	     // cerca utenti 
+        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, currentUser.getUsername());
+        
+        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
+        
 	    model.addAttribute("isFollowing", isFollowing);
 	    model.addAttribute("utente", targetUser);
 
@@ -62,7 +76,7 @@ public class ProfiloController {
 	  
 	
 
-	@PostMapping("/followUnfollow")
+	
 	public String followUnfollow(@RequestParam String username, HttpServletRequest request) {
 		
 	    String currentUsername = (String) request.getSession().getAttribute("username");
@@ -85,7 +99,7 @@ public class ProfiloController {
 	
 	
 	@GetMapping("/profilo/{username}/following")
-	public String mostraFollowing(HttpServletRequest request,@PathVariable String username, Model model) {
+	public String mostraFollowing(@RequestParam(required = false) String query,HttpServletRequest request,@PathVariable String username, Model model) {
 		String currentUsername = (String) request.getSession().getAttribute("username");
 		Utente currentUser=utenteService.trovaUtentePerUsername(currentUsername);
 		
@@ -94,45 +108,48 @@ public class ProfiloController {
 	        throw new UtenteNotFoundException("Utente non trovato.");
 	    }
 
-	    List<Utente> following = utente.getUtentes1();
-	    
-	    
-	    model.addAttribute("utente", utente);
-	    model.addAttribute("followings", following);
-
+          ProfileStrategy strategy;
 	    
 	    // Verifica il ruolo dell'utente corrente
 	    if (utenteService.verificaRuoloUtente(currentUser)) {
-	        return "adminFollowing"; // Pagina per l'admin
+	        strategy=new AdminProfileStrategy();
+	        
 	        
 	    } else {
-	        return "following"; // Pagina per l'utente normale
-	    }
-	    
+	    	strategy=new UserProfileStrategy();
+	    	// cerca utenti 
+	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, currentUser.getUsername());
+	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
+	    	
+	    }	   
+	    return strategy.getViewFollowing(currentUser, model, utente);
+	    	    
 	}
 
 	
 	@GetMapping("/profilo/{username}/followers")
-	public String mostraFollowers(HttpServletRequest request,@PathVariable String username, Model model) {
+	public String mostraFollowers(@RequestParam(required = false) String query,HttpServletRequest request,@PathVariable String username, Model model) {
 		String currentUsername = (String) request.getSession().getAttribute("username");
 		Utente currentUser=utenteService.trovaUtentePerUsername(currentUsername);
 	    Utente utente = utenteService.trovaUtentePerUsername(username);
 	    if (utente == null) {
 	        throw new UtenteNotFoundException("Utente non trovato.");
 	    }
-
-	    List<Utente> followers = utente.getUtentes2();
-	    model.addAttribute("utente", utente);
-	    model.addAttribute("followers", followers);
-	    
+          ProfileStrategy strategy;
 	    
 	    // Verifica il ruolo dell'utente corrente
 	    if (utenteService.verificaRuoloUtente(currentUser)) {
-	        return "adminFollowing"; // Pagina per l'admin
-	        
+	        strategy=new AdminProfileStrategy();
+	        	        
 	    } else {
-	        return "following"; // Pagina per l'utente normale
-	    }	    
+	    	strategy=new UserProfileStrategy();
+	    	// cerca utenti 
+	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, currentUser.getUsername());
+	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
+	    }	   
+	    return strategy.getViewFollowers(currentUser, model, utente);
+	    
+	    
 	}
 
    }
