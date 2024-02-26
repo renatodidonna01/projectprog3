@@ -42,6 +42,7 @@ public   class Utente implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "utente")
+	@OrderBy("dataOra DESC")
     private List<Tweet> tweets;
 	
 	
