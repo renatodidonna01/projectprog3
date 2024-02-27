@@ -10,6 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig {
+	
+	/**
+     * Crea un bean che fornisce un encoder per le password basato sull'algoritmo di hashing BCrypt.
+     * Questo encoder è utilizzato per hashare le password prima di memorizzarle nel database e per verificare le password durante l'autenticazione.
+     *
+     * @return Un'istanza di  BCryptPasswordEncoder da utilizzare come encoder delle password dell'applicazione.
+     */
+	
 
     @Bean
     public PasswordEncoder passwordEncoder() {

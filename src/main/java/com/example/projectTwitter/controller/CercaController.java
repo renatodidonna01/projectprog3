@@ -9,7 +9,10 @@ import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.UtenteService;
 import jakarta.servlet.http.HttpServletRequest;
 
-
+/**
+ * Controller per la gestione della ricerca di tweet all'interno della piattaforma Twitter.
+ * Permette agli utenti amministratori di cercare tweet degli utenti.
+ */
 
 @Controller
 public class CercaController {		
@@ -19,6 +22,14 @@ public class CercaController {
 		        this.utenteService = utenteService;
 		    }
 		 
+ /**
+     * Effettua la ricerca di tweet basata sulla query fornita.
+     * 
+     * @param request L'oggetto HttpServletRequest che rappresenta la richiesta HTTP.
+     * @param query La stringa di ricerca fornita dall'utente. È opzionale.
+     * @param model L'oggetto Model per passare dati alla vista.
+	 * @return Il nome della vista da visualizzare con i risultati della ricerca.
+ */
 		 
 				 
 		 @GetMapping("/admin/cercatweet")
@@ -31,7 +42,7 @@ public class CercaController {
 		     
 		     model.addAttribute("utente", utente);
 		     model.addAttribute("risultatiRicerca", risultatiRicerca);
-		     return "cercaTweet";
+		     return "admin/cercaTweet";
 		 }
 		 
 		 

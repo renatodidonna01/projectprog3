@@ -45,7 +45,16 @@ public class TweetService {
         return timelineTweets;
     }
     
-    
+    /**
+     * Valida il contenuto di un tweet.
+     * 
+     * Questo metodo controlla se il contenuto del tweet non è nullo o vuoto e se non supera i 140 caratteri.
+     * Se il contenuto del tweet non rispetta queste condizioni, verrà lanciata una  TweetValidationException.
+     * 
+     * @param content Il contenuto del tweet da validare.
+     * @return true se il tweet è valido, altrimenti lancia un'eccezione.
+     * @throws TweetValidationException Se il contenuto del tweet è nullo, vuoto o supera i 140 caratteri.
+     */    
     
 	public boolean validaTweet(String content) throws TweetValidationException {
 	    if (content == null || content.isEmpty()) {

@@ -12,9 +12,13 @@
      <div class="container">
         <div class="sidebar">
             <ul>
-                <li><a href="/home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/admin/home" class="active"><i class="fas fa-home"></i> Home</a></li>
                 
-                <li><a href="/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+                <li><a href="/admin/profilo"><i class="fas fa-user"></i> Profilo</a></li>
+                
+                 <li><a href="/admin/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
+        <!-- Aggiungi Cerca -->
+                  <li><a href="/admin/cercatweet"><i class="fas fa-search"></i> Cerca</a></li>
             </ul>
             </div>
             </div>
@@ -32,7 +36,8 @@
                 <div class="following">
                     <span class="follow-count" th:text="${utente.utentes1.size()}"></span>
                      <a th:href="@{/profilo/{username}/following(username=${utente.username})}" class="follow-text">Following</a>
-                </div>
+                </div>  
+                
                 <div class="followers">
                     <span class="follow-count" th:text="${utente.utentes2.size()}"></span>
                     <a th:href="@{/profilo/{username}/followers(username=${utente.username})}" class="follow-text">Followers</a>
@@ -40,15 +45,7 @@
             </div>
             
             
-                <div class="follow-action">
-                    <form th:action="@{/followUnfollow}" method="post">
-                        <input type="hidden" name="username" th:value="${utente.username}" />
-                        <button type="submit" class="follow-button" th:classappend="${isFollowing} ? 'unfollow-button' : 'follow-button'">
-                            <span th:if="${!isFollowing}" th:text="'Segui'"></span>
-                            <span th:if="${isFollowing}" th:text="'Smetti di seguire'"></span>
-                        </button>
-                    </form>
-                </div>
+                
             </div>
                       
         </div>
@@ -74,26 +71,7 @@
         
          
           
-               <div class="search-sidebar">
-          <form th:action="@{/profilo/{username}(username=${username})}" method="get">
-
-          <div class="search-input">
-           <input type="text" class="search-text" name="query" placeholder="Cerca...">
-            <button type="submit" class="search-button">
-            <i class="fas fa-search"></i> Cerca
-            </button>
-             </div>
-               </form>
-            
-            <div th:if="${risultatiRicercaUtenti}"   class="risultati-ricerca">
-               <h3>Risultati Utenti:</h3>
-               <ul>
-               <li th:each="utente : ${risultatiRicercaUtenti}">
-               <a th:href="@{/profilo/{username}(username=${utente.username})}" th:text="${utente.username}">Profilo</a>     
-               </li>
-               </ul>
-               </div>
-        </div>
+          
     
     
     

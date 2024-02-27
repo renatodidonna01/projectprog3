@@ -8,6 +8,11 @@ import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.UtenteService;
 import jakarta.servlet.http.HttpServletRequest;
 
+/**
+ * Controller per la gestione delle funzionalità amministrative della piattaforma Twitter.
+ * Fornisce i metodi per visualizzare la home dell'admin, gestire i profili e visualizzare i profili degli utenti.
+ */
+
 
 
 @Controller
@@ -18,6 +23,16 @@ public class AdminHomeController {
 	 public AdminHomeController(UtenteService utenteService) {
 	        this.utenteService = utenteService;
 	    }
+	 
+	 
+	 /**
+	     * Visualizza la homepage dell'admin mostrando gli utenti più attivi basati sui tweet.
+	     * 
+	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla richiesta.
+	     * @param model L'oggetto Model per passare attributi alla vista.
+	     * @return Il nome della vista da visualizzare.
+	     */
+	 
 	 
 	 @GetMapping("/admin/home")
 	 public String adminHome(HttpServletRequest request, Model model) {
@@ -31,14 +46,21 @@ public class AdminHomeController {
 				     
 		//creo lista che mi serve per aggiungere gli utenti con piu tweet
 		 List<Utente> utentiAttivi = utenteService.utentiAttiviTweet();
-		 
-			    		    		    
+		 			    		    		    
 		    model.addAttribute("utente", utente);
 		    model.addAttribute("utentiAttivi", utentiAttivi);
 		    
-		    return "adminHome"; 		 	 
+		    return "admin/adminHome"; 		 	 
 	 }
 	 
+	 
+	 /**
+	     * Visualizza il profilo dell'amministratore corrente.
+	     * 
+	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla richiesta.
+	     * @param model L'oggetto Model per passare attributi alla vista.
+	     * @return Il nome della vista da visualizzare.
+	     */
 	 
 	 
 	 
@@ -54,10 +76,17 @@ public class AdminHomeController {
 		    		    		    
 		    model.addAttribute("utente", utente);
 	        
-		    return "profiloAdmin";
+		    return "admin/profiloAdmin";
 		}   
 		
-		
+	 /**
+	     * Visualizza il profilo di un altro utente specificato dall'username.
+	     * 
+	     * @param username Lo username dell'utente di cui visualizzare il profilo.
+	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla richiesta.
+	     * @param model L'oggetto Model per passare attributi alla vista.
+	     * @return Il nome della vista da visualizzare.
+	     */
 		
 		
 		
@@ -71,7 +100,7 @@ public class AdminHomeController {
 		    Utente targetUser = utenteService.trovaUtentePerUsername(username);
 
 		    if (currentUser == null || targetUser == null) {
-		        return "adminHome"; 
+		        return "admin/adminHome"; 
 		    }
 
 		    //controllo se l'utente corrente segue l'utente di destinazione,controllo la lista dei seguiti e vedo se ci sta targetUser
@@ -80,7 +109,7 @@ public class AdminHomeController {
 		    model.addAttribute("isFollowing", isFollowing);
 		    model.addAttribute("utente", targetUser);
 		    
-		    return "adminOspite"; 
+		    return "admin/adminOspite"; 
 		}
 
 		  	  

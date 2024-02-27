@@ -18,10 +18,19 @@ import java.util.Collections;
 import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Servizio per la gestione degli utenti nella piattaforma Project Twitter.
+ * 
+ * Questo servizio offre funzionalità per la registrazione di nuovi utenti, la ricerca e gestione degli utenti,
+ * la pubblicazione e gestione di tweet, e la gestione delle relazioni di seguito tra gli utenti.
+ * Utilizza i repository {@link UtenteRepository}, {@link TweetRepository}, e {@link HashtagRepository}
+ * per interagire con il database. Inoltre, gestisce l'hashing delle password degli utenti attraverso {@link PasswordEncoder}.
 
+ */
 
 @Service
 public class UtenteService {
+	
 //utilizziamo la nostra interfaccia repository
     private final UtenteRepository utenteRepository;
     private final TweetRepository tweetRepository;
@@ -98,9 +107,7 @@ public class UtenteService {
     
     
  
-  
-    
-    
+      
 	public List<Utente> trovaSeguaciUtente(String username) {
 		return utenteRepository.findByUtentes1Username(username);
 	}

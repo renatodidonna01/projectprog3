@@ -15,6 +15,12 @@
                 <li><a href="/home" ><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="/profilo" class="active"><i class="fas fa-user"></i> Profilo</a></li>
             </ul>
+            
+             <div class="user-info">
+                <span id="logged-in-user" th:text="${username}"></span>
+            </div> 
+            
+            
             </div>
            
             
@@ -25,10 +31,10 @@
                        
                 <!-- Lista dei followers -->
          <div class="user-followers">
-            <h3>Following di <span th:text="${utente.username}"></span></h3>
+            <h3>Follower di <span th:text="${utente.username}"></span></h3>
             <ul class="follow-list">
-             <li th:each="following : ${followings}" class="follower-item">
-            <span th:text="${following.username}"></span> 
+             <li th:each="follower : ${followers}" class="follower-item">
+            <span th:text="${follower.username}"></span> 
             
              </li>
            </ul>
@@ -36,11 +42,13 @@
 
                                  
                 </div>
-                </div>
                  </div>
-          
+                 </div>
+                 
+                 
+               
            <div class="search-sidebar">
-            <form th:action="@{/profilo/{username}/following (username=${username})}" method="get">
+            <form th:action="@{/profilo/{username}/followers (username=${username})}" method="get">
                 <div class="search-input">
                     <input type="text" class="search-text" name="query" placeholder="Cerca...">
                     <button type="submit" class="search-button">
@@ -60,13 +68,18 @@
                
                
         </div>
-               </div>
-           
+               
+                </div> 
+     
+          
     
-    
-                  
+                 
 </body>
 </html>           
+                
+                
+                
+                
                 
                 
                 

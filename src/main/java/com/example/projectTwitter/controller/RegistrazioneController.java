@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.UtenteService;
 
+/**
+ * Controller per gestire il processo di registrazione degli utenti.
+ * Fornisce i metodi per mostrare il form di registrazione e per gestire il
+ * form con i dati dell'utente.
+ */
+
 
 @Controller
 @RequestMapping("/registrazione")
@@ -18,16 +24,33 @@ public class RegistrazioneController {
     @Autowired
     private UtenteService utenteService;
 
-   
+    /**
+     * Mostra il form di registrazione.
+     * 
+     * @param model Modello per passare dati alla vista.
+     * @return Il nome della vista di registrazione.
+     */
+    
     @GetMapping
     public String mostraFormRegistrazione(Model model) {
         model.addAttribute("utente", new Utente());
         System.out.println("Chiamato mostraFormRegistrazione");
-        return "registrazione";        
+        return "authentication/registrazione";        
     }
     
     
-
+    /**
+     * Gestisce la registrazione di un nuovo utente.
+     * Se la registrazione ha successo, reindirizza alla pagina di login.
+     * In caso di errore (es. username o email già in uso), reindirizza nuovamente alla pagina di registrazione
+     * mostrando un messaggio di errore.
+     * 
+     * @param utente L'utente da registrare.
+     * @param model Modello per passare dati alla vista.
+     * @param redirectAttributes Attributi per passare parametri in caso di reindirizzamento.
+     * @return Un reindirizzamento alla vista appropriata a seconda dell'esito della registrazione.
+     */
+    
     @PostMapping
     public String registraUtente(@ModelAttribute Utente utente, Model model,RedirectAttributes redirectAttributes) {
         try {

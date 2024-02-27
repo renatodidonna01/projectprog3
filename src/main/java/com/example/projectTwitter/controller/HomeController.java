@@ -20,6 +20,19 @@ import com.example.projectTwitter.strategy.UserHomePageStrategy;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
+/**
+ * Controller per la gestione della homepage e della pubblicazione dei tweet.
+ */
+
+/**
+ * Costruisce HomeController con le dipendenze necessarie.
+ * 
+ * @param utenteService Il servizio per gestire le operazioni relative agli utenti.
+ * @param tweetService Il servizio per gestire le operazioni relative ai tweet.
+ */
+
+
 @Controller
 public class HomeController {
 	private UtenteService utenteService;
@@ -31,31 +44,43 @@ public class HomeController {
 	        
 	    }	 
 	 
+	  /**
+	     * Gestisce le richieste GET alla homepage, mostrando contenuti personalizzati basati sulla query di ricerca, se presente.
+	     * 
+	     * @param query La query di ricerca per trovare utenti specifici (opzionale).
+	     * @param request La richiesta HTTP corrente.
+	     * @param model Il modello per passare dati alla vista.
+	     * @return Il nome della vista da renderizzare.
+	     */	
+	 
 	 
 		@GetMapping("/home")
 		public String home(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
 			Utente utente = utenteService.getUtenteLoggato(request);
+			String username = (String) request.getSession().getAttribute("username");
 		    if (utente == null) {
 		        return "redirect:/login";
 		    }	    
 		    
-			
-
-		    
-		    HomePageStrategy strategy;	    
-		    
-		    // Verifica il ruolo dell'utente,se è admin va alla home
-		    boolean isAdmin = utenteService.verificaRuoloUtente(utente);
-		    if (isAdmin) {
-		    	strategy = new AdminHomePageStrategy();
-		    } else {
-		        strategy = new UserHomePageStrategy(tweetService, utenteService);
-		    }
-			   
-		    return strategy.loadHomePage(model, utente, query);		
+			// cerca utenti 
+	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, utente.getUsername());
+	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
+	        model.addAttribute("username", username);
+	        
+	        return "user/home";
 		}
 	
-
+		 /**
+	     * Gestisce le richieste POST per la pubblicazione di nuovi tweet.
+	     * Valida il contenuto del tweet e lo associa all'utente e all'hashtag specificati.
+	     * 
+	     * @param content Il contenuto del tweet.
+	     * @param request La richiesta HTTP corrente.
+	     * @param hashtagId L'ID dell'hashtag associato al tweet.
+	     * @param model Il modello per passare dati alla vista.
+	     * @param redirectAttributes Attributi per passare messaggi o dati in caso di reindirizzamento.
+	     * @return Il percorso di reindirizzamento dopo l'elaborazione.
+	     */		 
 	
 	@PostMapping("/home")
 	public String pubblicaTweet(@RequestParam("content") String content, HttpServletRequest request, @RequestParam("hashtag") Integer hashtagId, Model model, RedirectAttributes redirectAttributes) {
@@ -71,7 +96,7 @@ public class HomeController {
 	    }
 	    
 	  //se valido
-	  // Recupera l'utente e l'hashtag dal database
+	  // Recupera  l'hashtag dal database
 	    
 	    Hashtag hashtag = utenteService.trovaHashtagPerId(hashtagId); 
 

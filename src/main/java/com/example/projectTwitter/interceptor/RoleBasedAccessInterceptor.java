@@ -1,51 +1,78 @@
-
 package com.example.projectTwitter.interceptor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-
 import com.example.projectTwitter.model.Utente;
-import com.example.projectTwitter.model.Utente.Role;
-import com.example.projectTwitter.service.CustomAuthenticationService;
 import com.example.projectTwitter.service.UtenteService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
+
+/**
+ * Interceptor che implementa il controllo degli accessi basato sui ruoli degli utenti.
+ * Determina se un utente può accedere a specifiche aree del sito in base al suo ruolo.
+ */
+
+
 @Component
 public class RoleBasedAccessInterceptor implements HandlerInterceptor {
-	  @Autowired
-	  private  UtenteService utenteservice;
-	
-	  @Override
-	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-	      
-	      // Controlla se la richiesta è per la pagina di login
-	      if (request.getRequestURI().equals("/login")) {
-	          return true; // Consenti l'accesso alla pagina di login
-	      }
-	      
-	      // Altrimenti, controlla se l'utente è autenticato
-	      Utente user = utenteservice.getUtenteLoggato(request); 
-	      
-	      if (user == null) {
-	          response.sendRedirect("/login"); // Reindirizza all'area di login se l'utente non è autenticato
-	          return false;
-	      }
-	      
-	      // Altrimenti, l'utente è autenticato e puoi procedere con il controllo dei ruoli
-	      Role userRole = user.getRuolo();
-	         
-	      // Verifica l'accesso in base all'URL della richiesta e al ruolo dell'utente
-	      if (request.getRequestURI().startsWith("/admin") && !Role.ADMIN.equals(userRole)) {
+    private static final String LOGIN_PATH = "/login";
+    private static final String ADMIN_PATH = "/admin";
+    private static final String LOGOUT_PATH = "/logout";
+    private static final String PROFILE_FOLLOWERS_REGEX = "/profilo/.+/followers";
+    private static final String PROFILE_FOLLOWING_REGEX = "/profilo/.+/following";
 
-	          response.sendRedirect("/access-denied"); 
-	          return false;
-	      }
+    @Autowired
+    private UtenteService utenteService;
 
-	      return true; // Continua con il normale processo di gestione della richiesta
-	  }
+    /**
+     * Prende decisioni di autorizzazione prima che una richiesta raggiunga il controller.
+     * 
+     * @param request La richiesta HTTP in arrivo.
+     * @param response La risposta HTTP da inviare.
+     * @param handler L'oggetto che gestisce la richiesta.
+     * @return true se l'utente ha il diritto di accedere alla risorsa richiesta, false altrimenti.
+     * @throws Exception in caso di errori.
+     */
+    
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String requestURI = request.getRequestURI();
+
+     
+
+        Utente user = utenteService.getUtenteLoggato(request);
+        
+        if (user == null) {
+            response.sendRedirect(LOGIN_PATH);
+            return false;
+        }
+
+        Utente.Role userRole = user.getRuolo();
+
+        if (Utente.Role.ADMIN.equals(userRole)) {
+            if (requestURI.startsWith(ADMIN_PATH) || requestURI.startsWith(LOGOUT_PATH)||   
+                 requestURI.matches(PROFILE_FOLLOWERS_REGEX) || requestURI.matches(PROFILE_FOLLOWING_REGEX)) {
+                return true;
+            } else {
+                response.sendRedirect("/access-denied");
+                return false;
+            }
+        }
+
+        if (Utente.Role.USER.equals(userRole)) {
+            if (!requestURI.startsWith(ADMIN_PATH)) {
+                return true;
+            } else {
+                response.sendRedirect("/access-denied");
+                return false;
+            }
+        }
+
+        response.sendRedirect("/access-denied");
+        return false;
+    }
 }
-
 

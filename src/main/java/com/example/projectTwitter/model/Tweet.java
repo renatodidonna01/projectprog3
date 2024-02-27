@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Tweet.findAll", query="SELECT t FROM Tweet t")
+
 public class Tweet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
