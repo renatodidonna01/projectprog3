@@ -29,7 +29,7 @@ public class EsploraController {
 	        this.tweetRepository=tweetRepository;
 	    }
 	
-	 @GetMapping("/esplora")
+	 @GetMapping("/admin/esplora")
 	    public String mostraCategorie(HttpServletRequest request,Model model) {
 	          
 		 List <String> categorie= hashtagRepository.trovaCategorie();
@@ -45,7 +45,7 @@ public class EsploraController {
 	 
 	 
 	 
-	 @GetMapping("/categoria/{categoria}")
+	 @GetMapping("/admin/categoria/{categoria}")
 	 public String mostraTweetPerCategoria(@PathVariable("categoria") String categoria, Model model,HttpServletRequest request) {
 	     List<Tweet> tweetPerCategoria = tweetRepository.findByHashtagTesto(categoria);
 	     String username = (String) request.getSession().getAttribute("username");

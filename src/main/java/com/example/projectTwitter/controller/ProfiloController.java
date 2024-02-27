@@ -76,7 +76,7 @@ public class ProfiloController {
 	  
 	
 
-	
+	@PostMapping("/followUnfollow")
 	public String followUnfollow(@RequestParam String username, HttpServletRequest request) {
 		
 	    String currentUsername = (String) request.getSession().getAttribute("username");
@@ -147,9 +147,7 @@ public class ProfiloController {
 	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, currentUser.getUsername());
 	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
 	    }	   
-	    return strategy.getViewFollowers(currentUser, model, utente);
-	    
-	    
+	    return strategy.getViewFollowers(currentUser, model, utente);	    
 	}
 
    }

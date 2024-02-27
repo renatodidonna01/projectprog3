@@ -17,6 +17,7 @@ import com.example.projectTwitter.strategy.AdminHomePageStrategy;
 import com.example.projectTwitter.strategy.HomePageStrategy;
 import com.example.projectTwitter.strategy.UserHomePageStrategy;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -31,25 +32,28 @@ public class HomeController {
 	    }	 
 	 
 	 
-	@GetMapping("/home")
-	public String home(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
-		Utente utente = utenteService.getUtenteLoggato(request);
-		
-	    if (utente == null) {
-	        return "redirect:/login";
-	    }	    
-	    HomePageStrategy strategy;	    
-	    
-	    // Verifica il ruolo dell'utente,se è admin va alla home
-	    boolean isAdmin = utenteService.verificaRuoloUtente(utente);
-	    if (isAdmin) {
-	    	strategy = new AdminHomePageStrategy();
-	    } else {
-	        strategy = new UserHomePageStrategy(tweetService, utenteService);
-	    }
-		   
-	    return strategy.loadHomePage(model, utente, query);		
-	}
+		@GetMapping("/home")
+		public String home(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
+			Utente utente = utenteService.getUtenteLoggato(request);
+		    if (utente == null) {
+		        return "redirect:/login";
+		    }	    
+		    
+			
+
+		    
+		    HomePageStrategy strategy;	    
+		    
+		    // Verifica il ruolo dell'utente,se è admin va alla home
+		    boolean isAdmin = utenteService.verificaRuoloUtente(utente);
+		    if (isAdmin) {
+		    	strategy = new AdminHomePageStrategy();
+		    } else {
+		        strategy = new UserHomePageStrategy(tweetService, utenteService);
+		    }
+			   
+		    return strategy.loadHomePage(model, utente, query);		
+		}
 	
 
 	

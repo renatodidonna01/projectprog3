@@ -13,8 +13,8 @@
             <ul>
                 <li><a href="/admin/home" ><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="/admin/profilo"><i class="fas fa-user"></i> Profilo</a></li>
-                <li><a href="/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
-                <li><a href="/cercatweet" class="active"><i class="fas fa-search"></i> Cerca</a></li>
+                <li><a href="/admin/esplora"><i class="fas fa-compass"></i> Esplora</a></li>
+                <li><a href="/admin/cercatweet" class="active"><i class="fas fa-search"></i> Cerca</a></li>
             </ul>
             <div class="user-info">
                 <span id="logged-in-user" th:text="${utente.username}"></span>
@@ -27,7 +27,7 @@
             </div>
         
             <div class="search-sidebar">
-                <form action="/cercatweet" method="get">
+                <form action="/admin/cercatweet" method="get">
                     <div class="search-input">
                         <input type="text" class="search-text" name="query" placeholder="Cerca...">
                         <button type="submit" class="search-button"><i class="fas fa-search"></i> Cerca</button>

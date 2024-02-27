@@ -1,13 +1,14 @@
 package com.example.projectTwitter.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.CustomAuthenticationService;
+import com.example.projectTwitter.service.UtenteService;
 
 import jakarta.servlet.http.HttpServletRequest;
 

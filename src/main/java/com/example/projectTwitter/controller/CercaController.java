@@ -21,7 +21,7 @@ public class CercaController {
 		 
 		 
 				 
-		 @GetMapping("/cercatweet")
+		 @GetMapping("/admin/cercatweet")
 		 public String cercaTweet(HttpServletRequest request,@RequestParam(required = false)String query,  Model model) {
 		    
 		     List<Tweet> risultatiRicerca = utenteService.RicercaTweet(query);	
