@@ -1,0 +1,9 @@
+com.example.projectTwitter.controller
+com.example.projectTwitter.exception
+com.example.projectTwitter.interceptor
+com.example.projectTwitter.model
+com.example.projectTwitter
+com.example.projectTwitter.repository
+com.example.projectTwitter.security
+com.example.projectTwitter.service
+com.example.projectTwitter.strategy

@@ -1,0 +1,1 @@
+cmd.exe /X /C "C:\Users\Utente\Downloads\sts-4.21.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.9.v20231028-0858\jre\bin\javadoc.exe @options @packages"
