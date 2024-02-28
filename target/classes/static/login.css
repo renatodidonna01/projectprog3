@@ -26,7 +26,7 @@ body {
 	width:80px;
 	height:auto;
     display: block;
-    margin: 0 auto 20px; /* Aggiunto margine sotto il logo */
+    margin: 0 auto 20px; 
     
 }
 
@@ -67,7 +67,7 @@ button:hover {
 p {
     text-align: center;
     color: #1da1f2;
-    font-size: 18px; /* Aumenta la dimensione del titolo */
+    font-size: 18px; 
      padding: 15px;
 }
 

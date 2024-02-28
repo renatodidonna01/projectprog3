@@ -28,15 +28,9 @@ public class Tweet implements Serializable {
 	
 
 	 @ManyToOne
-	    @JoinColumn(name = "ID_Hashtag")
-	    private Hashtag hashtag;
+	 @JoinColumn(name = "ID_Hashtag")
+	 private Hashtag hashtag;
 	 
-
-	
-	
-	
-
-
 	
 	@ManyToOne
 	@JoinColumn(name="IDUtente")

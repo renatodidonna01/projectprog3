@@ -16,7 +16,6 @@ import com.example.projectTwitter.model.Utente;
  * @see Utente modello che rappresenta l'utente nel sistema
  * @see Model interfaccia di Spring usata per aggiungere attributi al modello
  */
-
 public class AdminProfileStrategy implements ProfileStrategy {
 
 

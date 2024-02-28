@@ -13,9 +13,8 @@ import com.example.projectTwitter.model.Tweet;
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.TweetService;
 import com.example.projectTwitter.service.UtenteService;
-import com.example.projectTwitter.strategy.AdminHomePageStrategy;
-import com.example.projectTwitter.strategy.HomePageStrategy;
-import com.example.projectTwitter.strategy.UserHomePageStrategy;
+import com.example.projectTwitter.strategy.HomePage;
+import com.example.projectTwitter.strategy.UserHomePage;
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,8 +30,6 @@ import jakarta.servlet.http.HttpServletRequest;
  * @param utenteService Il servizio per gestire le operazioni relative agli utenti.
  * @param tweetService Il servizio per gestire le operazioni relative ai tweet.
  */
-
-
 @Controller
 public class HomeController {
 	private UtenteService utenteService;
@@ -44,16 +41,20 @@ public class HomeController {
 	        
 	    }	 
 	 
-	  /**
-	     * Gestisce le richieste GET alla homepage, mostrando contenuti personalizzati basati sulla query di ricerca, se presente.
-	     * 
-	     * @param query La query di ricerca per trovare utenti specifici (opzionale).
-	     * @param request La richiesta HTTP corrente.
-	     * @param model Il modello per passare dati alla vista.
-	     * @return Il nome della vista da renderizzare.
-	     */	
-	 
-	 
+	 /**
+	  * Gestisce la visualizzazione della homepage per l'utente loggato.
+	  * Se l'utente non è loggato, viene reindirizzato alla pagina di login.
+	  * Questo metodo supporta anche una funzionalità di ricerca: se viene fornita una query di ricerca,
+	  * effettua la ricerca degli utenti basata su tale query e aggiunge i risultati al modello per essere visualizzati.
+	  * Infine, carica la homepage utilizzando una specifica implementazione di {@link HomePage},
+	  
+	  *
+	  * @param query La stringa di ricerca per trovare gli utenti, opzionale.
+	  * @param request L'oggetto HttpServletRequest utilizzato per accedere alla sessione corrente e recuperare l'utente loggato.
+	  * @param model L'oggetto Model che viene utilizzato per aggiungere attributi da visualizzare nella view.
+	  * @return Una stringa che indica il nome della vista da renderizzare o un reindirizzamento alla pagina di login
+	  *         se nessun utente è loggato. La vista specifica è determinata dall'implementazione di {@link HomePage}.
+	  */	 
 		@GetMapping("/home")
 		public String home(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
 			Utente utente = utenteService.getUtenteLoggato(request);
@@ -61,13 +62,16 @@ public class HomeController {
 		    if (utente == null) {
 		        return "redirect:/login";
 		    }	    
-		    
-			// cerca utenti 
-	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, utente.getUsername());
+		     // cerca utenti 
+	        List<Utente> risultatiRicercaUtenti = utenteService.cercaUtentiConQuery(query, username);
 	        model.addAttribute("risultatiRicercaUtenti", risultatiRicercaUtenti);
 	        model.addAttribute("username", username);
 	        
-	        return "user/home";
+	        //carico la homepage
+             HomePage homepage= new UserHomePage(tweetService, utenteService);	    
+		    		    			   
+		    return homepage.loadHomePage(query,model,utente);
+		    	       
 		}
 	
 		 /**
@@ -81,7 +85,6 @@ public class HomeController {
 	     * @param redirectAttributes Attributi per passare messaggi o dati in caso di reindirizzamento.
 	     * @return Il percorso di reindirizzamento dopo l'elaborazione.
 	     */		 
-	
 	@PostMapping("/home")
 	public String pubblicaTweet(@RequestParam("content") String content, HttpServletRequest request, @RequestParam("hashtag") Integer hashtagId, Model model, RedirectAttributes redirectAttributes) {
 	    Utente utente =  utenteService.getUtenteLoggato(request);
@@ -107,7 +110,7 @@ public class HomeController {
 	    tweet.setUtente(utente);
 	    tweet.setDataOra(new Timestamp(System.currentTimeMillis()));
 
-	    utenteService.pubblicaTweet(username, tweet);
+	    tweetService.pubblicaTweet(username, tweet);
 
 	    // Imposta un messaggio di successo e reindirizza
 	    redirectAttributes.addFlashAttribute("successo", "Tweet pubblicato con successo!");

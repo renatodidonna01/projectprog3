@@ -16,8 +16,6 @@ import com.example.projectTwitter.model.Hashtag;
  * non coperte dall'implementazione standard di Spring Data JPA.
  * </p>
  */
-
-
 @Repository
 public interface HashtagRepository extends JpaRepository<Hashtag, Integer> {
 	

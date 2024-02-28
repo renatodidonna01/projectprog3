@@ -13,8 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * personalizzato per gestire l'accesso basato sui ruoli a vari endpoints dell'applicazione.
  * </p>
  */
-
-
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 

@@ -14,8 +14,6 @@ import jakarta.servlet.http.HttpServletResponse;
  * Interceptor che implementa il controllo degli accessi basato sui ruoli degli utenti.
  * Determina se un utente può accedere a specifiche aree del sito in base al suo ruolo.
  */
-
-
 @Component
 public class RoleBasedAccessInterceptor implements HandlerInterceptor {
     private static final String LOGIN_PATH = "/login";
@@ -26,7 +24,6 @@ public class RoleBasedAccessInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UtenteService utenteService;
-
     /**
      * Prende decisioni di autorizzazione prima che una richiesta raggiunga il controller.
      * 
@@ -35,8 +32,7 @@ public class RoleBasedAccessInterceptor implements HandlerInterceptor {
      * @param handler L'oggetto che gestisce la richiesta.
      * @return true se l'utente ha il diritto di accedere alla risorsa richiesta, false altrimenti.
      * @throws Exception in caso di errori.
-     */
-    
+     */   
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestURI = request.getRequestURI();

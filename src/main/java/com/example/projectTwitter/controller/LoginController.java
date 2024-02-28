@@ -11,9 +11,7 @@ import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.CustomAuthenticationService;
 import com.example.projectTwitter.service.TweetService;
 import com.example.projectTwitter.service.UtenteService;
-import com.example.projectTwitter.strategy.AdminHomePageStrategy;
-import com.example.projectTwitter.strategy.HomePageStrategy;
-import com.example.projectTwitter.strategy.UserHomePageStrategy;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 /**
@@ -23,13 +21,12 @@ import jakarta.servlet.http.HttpServletRequest;
 
 
 /**
- * Costruisce un LoginController con le dipendenze necessarie per l'autenticazione e la gestione degli utenti e dei tweet.
+ * Costruisce un LoginController con le dipendenze necessarie per l'autenticazione.
  * 
  * @param authenticationService Il servizio per l'autenticazione degli utenti.
  * @param utenteService Il servizio per la gestione degli utenti.
  * @param tweetService Il servizio per la gestione dei tweet.
  */
-
 @Controller
 public class LoginController {
 
@@ -46,35 +43,37 @@ public class LoginController {
     
    
     /**
-     * Gestisce il processo di login per gli utenti.
-     * Autentica l'utente basandosi su username e password, impostando la sessione in caso di successo.
-     * 
-     * @param username L' username fornito dall'utente.
+     * Gestisce il processo di login per l'applicazione.
+     * Autentica l'utente basandosi su username e password. Se l'autenticazione ha successo,
+     * l'username dell'utente viene memorizzato nella sessione, e viene effettuato un reindirizzamento
+     * alla pagina home appropriata in base al ruolo dell'utente. Gli utenti con ruolo di amministratore
+     * vengono reindirizzati a "/admin/home", mentre tutti gli altri utenti a "/home".
+     * In caso di fallimento dell'autenticazione, viene reindirizzato nuovamente alla pagina di login
+     * con un messaggio di errore.
+     *
+     * @param username Lo username fornito dall'utente.
      * @param password La password fornita dall'utente.
-     * @param request L'oggetto HttpServletRequest utilizzato per impostare la sessione.
-     * @param redirectAttributes Gli attributi per il reindirizzamento, utilizzati per inviare messaggi in caso di errore.
-     * @param model Il modello MVC per passare dati alla vista.
-     * @return Il nome della vista da reindirizzare in caso di successo o fallimento dell'autenticazione.
-     */    
+     * @param request L'oggetto HttpServletRequest utilizzato per gestire la sessione.
+     * @param redirectAttributes Utilizzato per passare attributi in caso di reindirizzamento,
+     *        in questo caso per mostrare un messaggio di errore se l'autenticazione fallisce.
+     * @return Una stringa che indica la vista o il percorso di reindirizzamento. Questo può essere
+     *         il percorso verso la homepage dell'amministratore, la homepage dell'utente o la pagina di login
+     *         con un parametro di errore se l'autenticazione fallisce.
+     */   
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest request,RedirectAttributes redirectAttributes,Model model) {
+    public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest request,RedirectAttributes redirectAttributes) {
         if (authenticationService.authenticate(username, password)) {
             request.getSession().setAttribute("username", username); // Memorizza l'username nella sessione 
             Utente utente = utenteService.getUtenteLoggato(request);
-            HomePageStrategy strategy;	    
-		    
-		    
-		    boolean isAdmin = utenteService.verificaRuoloUtente(utente);
+            
+            boolean isAdmin = utenteService.verificaRuoloUtente(utente);
 		    if (isAdmin) {
-		    	strategy = new AdminHomePageStrategy();
+		    	return "redirect:/admin/home"; 
 		    } else {
-		        strategy = new UserHomePageStrategy(tweetService, utenteService);
+		    	return "redirect:/home"; 
 		    }
-			   
-		    return strategy.loadHomePage(model, utente);		
-		}
-        
-        
+            		
+		}       
         else {
         	 redirectAttributes.addFlashAttribute("errore", "Credenziali errate! Ritenta!");
             return "redirect:/login?error";
@@ -82,11 +81,13 @@ public class LoginController {
     }
 
     /**
-     * Visualizza la pagina di login.
+     * Mostra la pagina di login.
+     * Questo metodo gestisce la richiesta GET per la pagina di login, restituendo la vista
+     * corrispondente alla pagina di autenticazione dove gli utenti possono inserire le loro credenziali.
      * 
-     * @return Il nome della vista per la pagina di login.
-     */
-    
+     * @return Il nome della vista per la pagina di login. La vista è definita in "authentication/login",
+     *         che corrisponde al percorso del file della vista all'interno della cartella delle risorse del template.
+     */   
     @GetMapping("/login")
     public String showLoginPage() {        
         return "authentication/login";
@@ -98,8 +99,7 @@ public class LoginController {
      * 
      * @param request L'oggetto HttpServletRequest utilizzato per accedere e modificare la sessione.
      * @return Il percorso di reindirizzamento alla pagina di login.
-     */
-    
+     */   
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("username"); // Rimuove l'utente dalla sessione

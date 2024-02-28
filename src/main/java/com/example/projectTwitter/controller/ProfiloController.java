@@ -26,7 +26,7 @@ public class ProfiloController {
 	 public ProfiloController(UtenteService utenteService) {
 	        this.utenteService = utenteService;
 	    }
-
+	 
 	 /**
 	  * Gestisce la visualizzazione della pagina del profilo dell'utente loggato.
 	  * Se l'utente non è loggato, reindirizza alla pagina di login. Supporta la ricerca di altri utenti
@@ -36,8 +36,7 @@ public class ProfiloController {
 	  * @param request L'oggetto HttpServletRequest per accedere alla sessione corrente.
 	  * @param model Il modello per passare dati alla vista.
 	  * @return Il nome della vista del profilo da visualizzare.
-	  */
-	 
+	  */	 
 	@GetMapping("/profilo")
 	public String visualizzaProfilo(@RequestParam(required = false) String query,HttpServletRequest request, Model model) {
 		Utente utente =  utenteService.getUtenteLoggato(request);
@@ -65,8 +64,7 @@ public class ProfiloController {
 	 * @param request L'oggetto HttpServletRequest per accedere alla sessione corrente.
 	 * @param model Il modello per passare dati alla vista.
 	 * @return Il nome della vista del profilo ospite da visualizzare.
-	 */
-	
+	 */	
 	@GetMapping("/profilo/{username}")
 	public String mostraProfilo(@RequestParam(required = false) String query,@PathVariable String username, HttpServletRequest request, Model model) {
 	    
@@ -103,7 +101,6 @@ public class ProfiloController {
 	 * @param request L'oggetto HttpServletRequest per accedere alla sessione corrente e ottenere lo username dell'utente loggato.
 	 * @return Un reindirizzamento alla pagina del profilo dell'utente specificato.
 	 */	
-
 	@PostMapping("/followUnfollow")
 	public String followUnfollow(@RequestParam String username, HttpServletRequest request) {
 		
@@ -132,8 +129,7 @@ public class ProfiloController {
 	 * @param username L' username dell'utente di cui si vogliono vedere gli utenti seguiti.
 	 * @param model Il modello per passare dati alla vista.
 	 * @return Il nome della vista che mostra gli utenti seguiti.
-	 */	
-	
+	 */		
 	@GetMapping("/profilo/{username}/following")
 	public String mostraFollowing(@RequestParam(required = false) String query,HttpServletRequest request,@PathVariable String username, Model model) {
 		String currentUsername = (String) request.getSession().getAttribute("username");
@@ -171,8 +167,7 @@ public class ProfiloController {
 	 * @param username L'username dell'utente di cui si vogliono vedere i followers.
 	 * @param model Il modello per passare dati alla vista.
 	 * @return Il nome della vista che mostra i followers.
-	 */
-	
+	 */	
 	@GetMapping("/profilo/{username}/followers")
 	public String mostraFollowers(@RequestParam(required = false) String query,HttpServletRequest request,@PathVariable String username, Model model) {
 		String currentUsername = (String) request.getSession().getAttribute("username");

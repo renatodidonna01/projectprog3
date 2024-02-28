@@ -54,8 +54,8 @@ body {
 .main-content {
     padding: 20px;
     margin-left: 300px;
-    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
-    max-width: 800px; /* Imposta una larghezza massima per grandi schermi */
+    width: calc(100% - 600px); 
+    max-width: 800px; 
     box-sizing: border-box;
 }
 

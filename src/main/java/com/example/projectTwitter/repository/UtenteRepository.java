@@ -16,9 +16,7 @@ import com.example.projectTwitter.model.Utente;
  * per l'entità. Inoltre, definisce metodi personalizzati per operazioni specifiche
  * non coperte dall'implementazione standard di Spring Data JPA.
  * </p>
- */
-
-	
+ */	
 	@Repository
 	public interface UtenteRepository extends JpaRepository<Utente, String> {
 		

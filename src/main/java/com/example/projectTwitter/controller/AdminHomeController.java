@@ -12,9 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
  * Controller per la gestione delle funzionalità amministrative della piattaforma Twitter.
  * Fornisce i metodi per visualizzare la home dell'admin, gestire i profili e visualizzare i profili degli utenti.
  */
-
-
-
 @Controller
 public class AdminHomeController {
 
@@ -31,9 +28,7 @@ public class AdminHomeController {
 	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla richiesta.
 	     * @param model L'oggetto Model per passare attributi alla vista.
 	     * @return Il nome della vista da visualizzare.
-	     */
-	 
-	 
+	     */	 
 	 @GetMapping("/admin/home")
 	 public String adminHome(HttpServletRequest request, Model model) {
 		 
@@ -60,10 +55,7 @@ public class AdminHomeController {
 	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla richiesta.
 	     * @param model L'oggetto Model per passare attributi alla vista.
 	     * @return Il nome della vista da visualizzare.
-	     */
-	 
-	 
-	 
+	     */	 
 	 @GetMapping("/admin/profilo")
 		public String AdminvisualizzaProfilo(HttpServletRequest request, Model model) {
 		 
@@ -86,10 +78,7 @@ public class AdminHomeController {
 	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla richiesta.
 	     * @param model L'oggetto Model per passare attributi alla vista.
 	     * @return Il nome della vista da visualizzare.
-	     */
-		
-		
-		
+	     */		
 		@GetMapping("/admin/profilo/{username}")
 		public String AdminmostraProfilo(@PathVariable String username, HttpServletRequest request, Model model) {
 		    

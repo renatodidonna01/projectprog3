@@ -19,7 +19,6 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * Controller per esplorare le diverse categorie di tweet e visualizzare tweet per specifiche categorie.
  */
-
 @Controller
 public class EsploraController {
 	 /**
@@ -28,8 +27,7 @@ public class EsploraController {
      * @param hashtagRepository Il repository per accedere alle informazioni sugli hashtag.
      * @param utenteService Il servizio per gestire gli utenti.
      * @param tweetRepository Il repository per accedere ai tweet.
-     */
-	
+     */	
 	private HashtagRepository hashtagRepository;
 	private UtenteService utenteService;
 	private TweetRepository tweetRepository;
@@ -45,8 +43,7 @@ public class EsploraController {
 	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla sessione corrente.
 	     * @param model L'oggetto Model per trasferire dati alla vista.
 	     * @return Il nome della vista da mostrare.
-	     */
-	 
+	     */	 
 	 @GetMapping("/admin/esplora")
 	    public String mostraCategorie(HttpServletRequest request,Model model) {
 	          
@@ -68,8 +65,6 @@ public class EsploraController {
 	     * @param request L'oggetto HttpServletRequest per ottenere informazioni sulla sessione corrente.
 	     * @return Il nome della vista da mostrare con i tweet della categoria specificata.
 	     */
-	 
-	 	 
 	 @GetMapping("/admin/categoria/{categoria}")
 	 public String mostraTweetPerCategoria(@PathVariable("categoria") String categoria, Model model,HttpServletRequest request) {
 	     List<Tweet> tweetPerCategoria = tweetRepository.findByHashtagTesto(categoria);

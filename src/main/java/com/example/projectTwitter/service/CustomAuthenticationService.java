@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
  * Servizio per l'autenticazione degli utenti.
  * Fornisce metodi per autenticare gli utenti, verificare se un utente è loggato e ottenere l'username dell'utente corrente.
  */
-
 @Service
 public class CustomAuthenticationService {
 
@@ -31,19 +30,29 @@ public class CustomAuthenticationService {
      * @param username L'username dell'utente da autenticare.
      * @param password La password dell'utente.
      * @return true se l'utente esiste e la password è corretta, false altrimenti.
-     */
-    
+     */    
     public boolean authenticate(String username, String password) {
         Utente user = userRepository.findByUsername(username);
 // Verifica se l'utente esiste e la password è corretta,confrontando la password fornita con quella hashata nel database 
         return user != null && passwordEncoder.matches(password, user.getPassword());
     }
     
-    
+    /**
+     * Verifica se un utente è attualmente loggato controllando se l'attributo "username" è presente nella sessione.
+     *
+     * @param request L'oggetto HttpServletRequest da cui ottenere la sessione corrente.
+     * @return true se l'utente è loggato (cioè l'attributo "username" è presente nella sessione), altrimenti false.
+     */   
     public boolean isUserLoggedIn(HttpServletRequest request) {
         return request.getSession().getAttribute("username") != null;
     }
-
+    
+    /**
+     * Recupera lo username dell'utente loggato dalla sessione corrente.
+     *
+     * @param request L'oggetto HttpServletRequest da cui ottenere la sessione corrente.
+     * @return Lo username dell'utente loggato come stringa. Ritorna null se nessun utente è loggato.
+     */
     public String getCurrentUsername(HttpServletRequest request) {
         return (String) request.getSession().getAttribute("username");
     }

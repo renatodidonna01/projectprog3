@@ -7,8 +7,8 @@ body {
 .container {
     display: flex;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    flex-direction: row; /* Assicurati che gli elementi siano disposti in fila */
-    justify-content: space-between; /* Distanzia gli elementi */
+    flex-direction: row; 
+    justify-content: space-between; 
 }
 
 

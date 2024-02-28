@@ -15,8 +15,6 @@ import com.example.projectTwitter.service.UtenteService;
  * Fornisce i metodi per mostrare il form di registrazione e per gestire il
  * form con i dati dell'utente.
  */
-
-
 @Controller
 @RequestMapping("/registrazione")
 public class RegistrazioneController {
@@ -29,8 +27,7 @@ public class RegistrazioneController {
      * 
      * @param model Modello per passare dati alla vista.
      * @return Il nome della vista di registrazione.
-     */
-    
+     */    
     @GetMapping
     public String mostraFormRegistrazione(Model model) {
         model.addAttribute("utente", new Utente());
@@ -41,6 +38,10 @@ public class RegistrazioneController {
     
     /**
      * Gestisce la registrazione di un nuovo utente.
+     * L'annotazione @ModelAttribute indica a Spring di mappare automaticamente i campi del form di registrazione
+     * inviati nella richiesta POST ai corrispondenti attributi dell'oggetto Utente. Questo processo di "binding" 
+     * automatico consente di popolare l'oggetto Utente con i dati inviati dall'utente senza necessità di 
+     * estrazione e assegnazione manuale dei valori dei campi.
      * Se la registrazione ha successo, reindirizza alla pagina di login.
      * In caso di errore (es. username o email già in uso), reindirizza nuovamente alla pagina di registrazione
      * mostrando un messaggio di errore.
@@ -49,8 +50,7 @@ public class RegistrazioneController {
      * @param model Modello per passare dati alla vista.
      * @param redirectAttributes Attributi per passare parametri in caso di reindirizzamento.
      * @return Un reindirizzamento alla vista appropriata a seconda dell'esito della registrazione.
-     */
-    
+     */    
     @PostMapping
     public String registraUtente(@ModelAttribute Utente utente, Model model,RedirectAttributes redirectAttributes) {
         try {

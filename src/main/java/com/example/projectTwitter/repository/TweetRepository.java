@@ -14,8 +14,6 @@ import com.example.projectTwitter.model.Tweet;
  * non coperte dall'implementazione standard di Spring Data JPA.
  * </p>
  */
-
-
 @Repository
 public interface TweetRepository extends JpaRepository<Tweet, Integer> { 
 	
@@ -28,6 +26,5 @@ public interface TweetRepository extends JpaRepository<Tweet, Integer> {
 	//cerco tweet che contengono una sequenza di caratteri di query ignorando maiuscole
     List<Tweet> findByTestoContainingIgnoreCase(String query);
 
-    
         
 }

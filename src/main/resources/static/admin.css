@@ -50,8 +50,8 @@ body {
 .main-content {
     padding: 20px;
     margin-left: 300px;
-    width: calc(100% - 600px); /* Adatta la larghezza considerando le sidebar */
-    max-width: 800px; /* Imposta una larghezza massima per grandi schermi */
+    width: calc(100% - 600px); 
+    max-width: 800px; 
     box-sizing: border-box;
 }
 
@@ -124,28 +124,28 @@ body {
 }
 
 .user-list {
-    padding: 20px; /* Spazio intorno agli elementi della lista */
+    padding: 20px; 
 }
 
 .user-list h3 {
-    margin-bottom: 10px; /* Spazio tra il titolo della lista e gli elementi */
-    color: #333; /* Colore del testo per il titolo della lista */
-    font-size: 24px; /* Dimensione del testo per il titolo */
+    margin-bottom: 10px; 
+    color: #333; 
+    font-size: 24px; 
 }
 
 .user-list ul {
-    list-style: none; /* Rimuove i punti elenco */
-    padding: 0; /* Azzera il padding interno */
+    list-style: none; 
+    padding: 0; 
 }
 
 .user-list li {
-    padding: 10px; /* Spazio intorno a ciascun elemento della lista */
-    border: 1px solid #e1e1e1; /* Bordi sottili per ciascun elemento */
-    margin-bottom: 5px; /* Spazio tra gli elementi della lista */
-    border-radius: 5px; /* Bordi arrotondati per gli elementi della lista */
-    background-color: #f8f8f8; /* Colore di sfondo per ciascun elemento della lista */
-    font-size: 18px; /* Dimensione del testo per gli elementi della lista */
-    color: #333; /* Colore del testo per gli elementi */
+    padding: 10px; 
+    border: 1px solid #e1e1e1; 
+    margin-bottom: 5px; 
+    border-radius: 5px; 
+    background-color: #f8f8f8; 
+    font-size: 18px; 
+    color: #333; 
 }
 
 
@@ -184,8 +184,8 @@ body {
 .tweet-content {
     
     margin-top: 10px;
-    word-wrap: break-word; /* Permette al testo di andare a capo */
-    overflow-wrap: break-word; /* Gestisce le parole lunghe */
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
 }
 
 .tweet-timestamp {

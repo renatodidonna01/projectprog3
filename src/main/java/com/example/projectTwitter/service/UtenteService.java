@@ -19,7 +19,7 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Servizio per la gestione degli utenti nella piattaforma Project Twitter.
+ * Servizio per la gestione degli utenti nella piattaforma  Twitter.
  * 
  * Questo servizio offre funzionalità per la registrazione di nuovi utenti, la ricerca e gestione degli utenti,
  * la pubblicazione e gestione di tweet, e la gestione delle relazioni di seguito tra gli utenti.
@@ -27,7 +27,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * per interagire con il database. Inoltre, gestisce l'hashing delle password degli utenti attraverso {@link PasswordEncoder}.
 
  */
-
 @Service
 public class UtenteService {
 	
@@ -119,26 +118,21 @@ public class UtenteService {
 	}
 	
 
-	public Tweet pubblicaTweet(String username, Tweet tweet) {
-		
-		if (tweet.getTesto() == null || tweet.getTesto().isEmpty()) {
-	        throw new TweetValidationException("Devi scrivere qualcosa per inviare un tweet");
-	    }
-	    if (tweet.getTesto().length() > 140) {
-	        throw new TweetValidationException("Il tweet non può superare i 140 caratteri.");
-	    }
-	    
-	    
-		return tweetRepository.save(tweet);	
-	} 
 	
-	
-
+	/**
+	 * Un utente (follower) inizia a seguire un altro utente (followed).
+	 * Questa azione aggiunge ciascun utente alla rispettiva lista di utenti che stanno seguendo o che vengono seguiti.
+	 * Entrambe le entità utente vengono aggiornate nel database per riflettere questa nuova relazione.
+	 * 
+	 * @param followerUsername Lo username dell'utente che desidera seguire l'altro utente.
+	 * @param followedUsername Lo username dell'utente che deve essere seguito.
+	 * @throws UtenteNotFoundException se il follower o l'utente da seguire non viene trovato nel database.
+	 */	
 	public void seguiUtente(String followerUsername, String followedUsername) {
 	    Utente follower = utenteRepository.findByUsername(followerUsername);
-	    		 if (follower == null) {
-	    		   throw new UtenteNotFoundException("Follower con username " + followerUsername + " non trovato.");
-	    		    }
+	    if (follower == null) {
+	    throw new UtenteNotFoundException("Follower con username " + followerUsername + " non trovato.");
+	    }
 	    
 	    Utente followed = utenteRepository.findByUsername(followedUsername);
 	    if (followed == null) {
@@ -156,7 +150,15 @@ public class UtenteService {
 	    utenteRepository.save(followed);
 	}
 	
-	
+	/**
+	 * Consente a un utente di smettere di seguire un altro utente. Rimuove l'utente seguito dalla lista
+	 * dei seguiti del follower e rimuove il follower dalla lista dei seguaci dell'utente seguito.
+	 * Salva le modifiche degli utenti nel database per mantenere aggiornata la relazione di seguito.
+	 *
+	 * @param followerUsername Lo username dell'utente che intende smettere di seguire l'altro utente (follower).
+	 * @param followedUsername Lo username dell'utente che non sarà più seguito (followed).
+	 * @throws UtenteNotFoundException se il follower o l'utente seguito non esiste nel database.
+	 */	
 	public void defollowaUtente(String followerUsername, String followedUsername) {
 	    Utente follower = utenteRepository.findByUsername(followerUsername);
 	    if (follower == null) {
@@ -181,19 +183,24 @@ public class UtenteService {
 	}
 
   
-
+	/**
+	 * Cerca utenti in base a una stringa di query fornita, escludendo un username specifico dai risultati.
+	 *
+	 * @param query La stringa di ricerca per filtrare gli utenti.
+	 * @param usernameEscluso L'username da escludere dalla ricerca.
+	 * @return Una lista di {@link Utente} che corrisponde ai criteri di ricerca.
+	 */	
     public List<Utente> cercaUtenti(String query, String usernameEscluso) {
         return utenteRepository.RicercaProfilo(query, usernameEscluso);
     }
     
     
-    
-    public List<Tweet> RicercaTweet(String query) {
-        return tweetRepository.findByTestoContainingIgnoreCase(query);
-    } 
-    
-    
-    
+    /**
+     * Recupera l'utente attualmente loggato basandosi sui dati della sessione.
+     *
+     * @param request La richiesta HTTP da cui recuperare i dati della sessione.
+     * @return L'{@link Utente} loggato, o null se nessun utente è loggato.
+     */   
     public Utente getUtenteLoggato(HttpServletRequest request) {
         String username = (String) request.getSession().getAttribute("username");
         if (username == null) {
@@ -202,12 +209,26 @@ public class UtenteService {
         return trovaUtentePerUsername(username);
         }
     
-    
+ 
+    /**
+     * Verifica se un utente ha il ruolo di amministratore.
+     *
+     * @param utente L'{@link Utente} da verificare.
+     * @return true se l'utente è un amministratore, false altrimenti.
+     */    
     public boolean verificaRuoloUtente(Utente utente) {
         return Utente.Role.ADMIN.equals(utente.getRuolo());
     }
     
-    
+  
+    /**
+     * Cerca utenti in base a una stringa di query fornita, escludendo un username specifico dai risultati,
+     * solo se la stringa di query non è null o vuota.
+     *
+     * @param query La stringa di ricerca per filtrare gli utenti.
+     * @param usernameEscluso L'username da escludere dalla ricerca.
+     * @return Una lista di {@link Utente} che corrisponde ai criteri di ricerca, oppure una lista vuota se la query è null o vuota.
+     */    
     public List<Utente> cercaUtentiConQuery(String query, String usernameEscluso) {
         if (query != null && !query.trim().isEmpty()) {
             return cercaUtenti(query, usernameEscluso);
@@ -216,7 +237,11 @@ public class UtenteService {
         }
     }
 
-
+    /**
+     * Recupera una lista degli utenti con il maggior numero di tweet.
+     *
+     * @return Una lista di {@link Utente} ordinata in base al numero di tweet pubblicati.
+     */    
 	public List<Utente> utentiAttiviTweet() {
 		return utenteRepository.findUsersWithMostTweets();	
 	}
@@ -224,10 +249,5 @@ public class UtenteService {
     
     
 
-    
-    
-    
-    
-    
-    
+       
 	}
