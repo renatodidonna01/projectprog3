@@ -1,7 +1,6 @@
 package com.example.projectTwitter.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,7 +8,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.projectTwitter.model.Utente;
 import com.example.projectTwitter.service.CustomAuthenticationService;
-import com.example.projectTwitter.service.TweetService;
 import com.example.projectTwitter.service.UtenteService;
 
 
@@ -32,12 +30,12 @@ public class LoginController {
 
     private final CustomAuthenticationService authenticationService;
     private final UtenteService utenteService;
-    private final TweetService tweetService;
+  
  
-    public LoginController(CustomAuthenticationService authenticationService,UtenteService utenteService,TweetService tweetService) {
+    public LoginController(CustomAuthenticationService authenticationService,UtenteService utenteService) {
         this.authenticationService = authenticationService;
         this.utenteService=utenteService;
-        this.tweetService=tweetService;
+        
     }
     
     

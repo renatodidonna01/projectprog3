@@ -17,11 +17,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
-    private RoleBasedAccessInterceptor roleBasedAccessInterceptor;
+    private AccessInterceptor accessInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(roleBasedAccessInterceptor)
+        registry.addInterceptor(accessInterceptor)
         
         .addPathPatterns("/admin/home",
                 "/admin/profilo",
@@ -32,9 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
                 "/home",
                 "/profilo",
                 "/profilo/{username}",
-                "/followUnfollow",
-                "/profilo/{username}/following",
-                "/profilo/{username}/followers"
+                "/followUnfollow"
                   );
              
     }

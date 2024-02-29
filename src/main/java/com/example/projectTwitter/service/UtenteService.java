@@ -21,8 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * Servizio per la gestione degli utenti nella piattaforma  Twitter.
  * 
- * Questo servizio offre funzionalità per la registrazione di nuovi utenti, la ricerca e gestione degli utenti,
- * la pubblicazione e gestione di tweet, e la gestione delle relazioni di seguito tra gli utenti.
+ * Questo servizio offre funzionalità per la registrazione di nuovi utenti, la ricerca e gestione degli utenti
  * Utilizza i repository {@link UtenteRepository}, {@link TweetRepository}, e {@link HashtagRepository}
  * per interagire con il database. Inoltre, gestisce l'hashing delle password degli utenti attraverso {@link PasswordEncoder}.
 

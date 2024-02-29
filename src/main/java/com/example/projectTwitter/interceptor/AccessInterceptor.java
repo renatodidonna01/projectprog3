@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * Determina se un utente può accedere a specifiche aree del sito in base al suo ruolo.
  */
 @Component
-public class RoleBasedAccessInterceptor implements HandlerInterceptor {
+public class AccessInterceptor implements HandlerInterceptor {
     private static final String LOGIN_PATH = "/login";
     private static final String ADMIN_PATH = "/admin";
     private static final String LOGOUT_PATH = "/logout";
